@@ -6,7 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/Users/ejina/minishell/main.c
+/Users/ejina/minishell/function_export.c
+function_export.h
+/Users/ejina/minishell/function_export.h
+
+/Users/ejina/minishell/function_export.h
 stdio.h
 -
 unistd.h

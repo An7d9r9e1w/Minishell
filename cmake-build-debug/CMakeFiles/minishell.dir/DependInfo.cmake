@@ -4,7 +4,14 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
+  "/Users/ejina/minishell/function_cd.c" "/Users/ejina/minishell/cmake-build-debug/CMakeFiles/minishell.dir/function_cd.c.o"
+  "/Users/ejina/minishell/function_echo.c" "/Users/ejina/minishell/cmake-build-debug/CMakeFiles/minishell.dir/function_echo.c.o"
+  "/Users/ejina/minishell/function_env.c" "/Users/ejina/minishell/cmake-build-debug/CMakeFiles/minishell.dir/function_env.c.o"
+  "/Users/ejina/minishell/function_export.c" "/Users/ejina/minishell/cmake-build-debug/CMakeFiles/minishell.dir/function_export.c.o"
+  "/Users/ejina/minishell/function_pwd.c" "/Users/ejina/minishell/cmake-build-debug/CMakeFiles/minishell.dir/function_pwd.c.o"
+  "/Users/ejina/minishell/function_unset.c" "/Users/ejina/minishell/cmake-build-debug/CMakeFiles/minishell.dir/function_unset.c.o"
   "/Users/ejina/minishell/main.c" "/Users/ejina/minishell/cmake-build-debug/CMakeFiles/minishell.dir/main.c.o"
+  "/Users/ejina/minishell/utils.c" "/Users/ejina/minishell/cmake-build-debug/CMakeFiles/minishell.dir/utils.c.o"
   )
 set(CMAKE_C_COMPILER_ID "AppleClang")
 

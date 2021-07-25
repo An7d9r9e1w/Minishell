@@ -78,7 +78,52 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/Users/ejina/minishell/function_cd.c">
+			<Option target="minishell"/>
+		</Unit>
+		<Unit filename="/Users/ejina/minishell/function_cd.h">
+			<Option target="minishell"/>
+		</Unit>
+		<Unit filename="/Users/ejina/minishell/function_echo.c">
+			<Option target="minishell"/>
+		</Unit>
+		<Unit filename="/Users/ejina/minishell/function_echo.h">
+			<Option target="minishell"/>
+		</Unit>
+		<Unit filename="/Users/ejina/minishell/function_env.c">
+			<Option target="minishell"/>
+		</Unit>
+		<Unit filename="/Users/ejina/minishell/function_env.h">
+			<Option target="minishell"/>
+		</Unit>
+		<Unit filename="/Users/ejina/minishell/function_export.c">
+			<Option target="minishell"/>
+		</Unit>
+		<Unit filename="/Users/ejina/minishell/function_export.h">
+			<Option target="minishell"/>
+		</Unit>
+		<Unit filename="/Users/ejina/minishell/function_pwd.c">
+			<Option target="minishell"/>
+		</Unit>
+		<Unit filename="/Users/ejina/minishell/function_pwd.h">
+			<Option target="minishell"/>
+		</Unit>
+		<Unit filename="/Users/ejina/minishell/function_unset.c">
+			<Option target="minishell"/>
+		</Unit>
+		<Unit filename="/Users/ejina/minishell/function_unset.h">
+			<Option target="minishell"/>
+		</Unit>
 		<Unit filename="/Users/ejina/minishell/main.c">
+			<Option target="minishell"/>
+		</Unit>
+		<Unit filename="/Users/ejina/minishell/main.h">
+			<Option target="minishell"/>
+		</Unit>
+		<Unit filename="/Users/ejina/minishell/utils.c">
+			<Option target="minishell"/>
+		</Unit>
+		<Unit filename="/Users/ejina/minishell/utils.h">
 			<Option target="minishell"/>
 		</Unit>
 		<Unit filename="/Users/ejina/minishell/CMakeLists.txt">

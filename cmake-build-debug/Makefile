@@ -142,6 +142,168 @@ minishell/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/build
 .PHONY : minishell/fast
 
+function_cd.o: function_cd.c.o
+
+.PHONY : function_cd.o
+
+# target to build an object file
+function_cd.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/function_cd.c.o
+.PHONY : function_cd.c.o
+
+function_cd.i: function_cd.c.i
+
+.PHONY : function_cd.i
+
+# target to preprocess a source file
+function_cd.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/function_cd.c.i
+.PHONY : function_cd.c.i
+
+function_cd.s: function_cd.c.s
+
+.PHONY : function_cd.s
+
+# target to generate assembly for a file
+function_cd.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/function_cd.c.s
+.PHONY : function_cd.c.s
+
+function_echo.o: function_echo.c.o
+
+.PHONY : function_echo.o
+
+# target to build an object file
+function_echo.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/function_echo.c.o
+.PHONY : function_echo.c.o
+
+function_echo.i: function_echo.c.i
+
+.PHONY : function_echo.i
+
+# target to preprocess a source file
+function_echo.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/function_echo.c.i
+.PHONY : function_echo.c.i
+
+function_echo.s: function_echo.c.s
+
+.PHONY : function_echo.s
+
+# target to generate assembly for a file
+function_echo.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/function_echo.c.s
+.PHONY : function_echo.c.s
+
+function_env.o: function_env.c.o
+
+.PHONY : function_env.o
+
+# target to build an object file
+function_env.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/function_env.c.o
+.PHONY : function_env.c.o
+
+function_env.i: function_env.c.i
+
+.PHONY : function_env.i
+
+# target to preprocess a source file
+function_env.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/function_env.c.i
+.PHONY : function_env.c.i
+
+function_env.s: function_env.c.s
+
+.PHONY : function_env.s
+
+# target to generate assembly for a file
+function_env.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/function_env.c.s
+.PHONY : function_env.c.s
+
+function_export.o: function_export.c.o
+
+.PHONY : function_export.o
+
+# target to build an object file
+function_export.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/function_export.c.o
+.PHONY : function_export.c.o
+
+function_export.i: function_export.c.i
+
+.PHONY : function_export.i
+
+# target to preprocess a source file
+function_export.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/function_export.c.i
+.PHONY : function_export.c.i
+
+function_export.s: function_export.c.s
+
+.PHONY : function_export.s
+
+# target to generate assembly for a file
+function_export.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/function_export.c.s
+.PHONY : function_export.c.s
+
+function_pwd.o: function_pwd.c.o
+
+.PHONY : function_pwd.o
+
+# target to build an object file
+function_pwd.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/function_pwd.c.o
+.PHONY : function_pwd.c.o
+
+function_pwd.i: function_pwd.c.i
+
+.PHONY : function_pwd.i
+
+# target to preprocess a source file
+function_pwd.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/function_pwd.c.i
+.PHONY : function_pwd.c.i
+
+function_pwd.s: function_pwd.c.s
+
+.PHONY : function_pwd.s
+
+# target to generate assembly for a file
+function_pwd.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/function_pwd.c.s
+.PHONY : function_pwd.c.s
+
+function_unset.o: function_unset.c.o
+
+.PHONY : function_unset.o
+
+# target to build an object file
+function_unset.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/function_unset.c.o
+.PHONY : function_unset.c.o
+
+function_unset.i: function_unset.c.i
+
+.PHONY : function_unset.i
+
+# target to preprocess a source file
+function_unset.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/function_unset.c.i
+.PHONY : function_unset.c.i
+
+function_unset.s: function_unset.c.s
+
+.PHONY : function_unset.s
+
+# target to generate assembly for a file
+function_unset.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/function_unset.c.s
+.PHONY : function_unset.c.s
+
 main.o: main.c.o
 
 .PHONY : main.o
@@ -169,6 +331,33 @@ main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/main.c.s
 .PHONY : main.c.s
 
+utils.o: utils.c.o
+
+.PHONY : utils.o
+
+# target to build an object file
+utils.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/utils.c.o
+.PHONY : utils.c.o
+
+utils.i: utils.c.i
+
+.PHONY : utils.i
+
+# target to preprocess a source file
+utils.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/utils.c.i
+.PHONY : utils.c.i
+
+utils.s: utils.c.s
+
+.PHONY : utils.s
+
+# target to generate assembly for a file
+utils.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/utils.c.s
+.PHONY : utils.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -178,9 +367,30 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... minishell"
+	@echo "... function_cd.o"
+	@echo "... function_cd.i"
+	@echo "... function_cd.s"
+	@echo "... function_echo.o"
+	@echo "... function_echo.i"
+	@echo "... function_echo.s"
+	@echo "... function_env.o"
+	@echo "... function_env.i"
+	@echo "... function_env.s"
+	@echo "... function_export.o"
+	@echo "... function_export.i"
+	@echo "... function_export.s"
+	@echo "... function_pwd.o"
+	@echo "... function_pwd.i"
+	@echo "... function_pwd.s"
+	@echo "... function_unset.o"
+	@echo "... function_unset.i"
+	@echo "... function_unset.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... utils.o"
+	@echo "... utils.i"
+	@echo "... utils.s"
 .PHONY : help
 
 
