@@ -4,8 +4,8 @@
 typedef struct s_cvector
 {
 	char			*arr;
+	unsigned int	capacity;
 	unsigned int	size;
-	unsigned int	count;
 }	t_cvector;
 
 t_cvector		*cvector_create(void);

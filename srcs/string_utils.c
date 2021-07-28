@@ -37,3 +37,30 @@ void	drop_blanks(char **str)
 		cur++;
 	*str = cur;
 }
+
+char	*mstrcat(char *dst, const char *src, unsigned int srclen)
+{
+	char			*str;
+	char			*str_cur;
+	unsigned int	dstlen;
+
+	if ((!src || !srclen) && dst)
+		return (dst);
+	if (dst)
+		dstlen = mstrlen(dst);
+	else
+		dstlen = 0;
+	str = malloc(sizeof(char) * (dstlen + srclen + 1));
+	if (!str)
+		return (0);
+	str_cur = str;
+	while (*dst)
+		*str_cur++ = *dst++;
+	dst -= str_cur - str;
+	while (*src)
+		*str_cur++ = *src++;
+	*str_len = 0;
+	if (dst)
+		free(dst);
+	return (str);
+}
