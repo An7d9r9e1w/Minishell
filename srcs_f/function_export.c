@@ -5,7 +5,7 @@ static int validate_env(const char *str)
 	int i;
 
 	i = 0;
-	if (str[i] >= '0'&& str[i] <= '9' || str[i] == '=')
+	if ((str[i] >= '0' && str[i] <= '9') || str[i] == '=')
 	{
 		write(2, "export: not an identifier: ", 27);
 		while (*str && *str != '=')

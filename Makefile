@@ -12,24 +12,22 @@ CC := gcc
 CFLAGS := -Wall -Wextra -Werror -I $(INCDIR)
 DEPFLAGS = -MT $@ -MMD -MF $(DEPDIR)/$*.tmpd
 COMPILE.c = $(CC) $(CFLAGS) $(DEPFLAGS) -c -o
-LINK.c = $(CC) $(CFLAGS) -o
+LINK.c = $(CC) $(CFLAGS) -lreadline -o
 POSTCOMPILE = mv -f $(DEPDIR)/$*.tmpd $(DEPDIR)/$*.d && touch $@
 
 MKDIR = mkdir -p $@
 RM := rm -rf
 
+#-------------------------------------------------------------------------------#
 
 $(NAME): $(OBJS)
 	$(LINK.c) $@ $^
 
 all: $(NAME)
 
-$(OBJDIR)/%.o : $(SRCDIR)/%.c $(DEPDIR)/%.d | $(OBJDIR) $(DEPDIR)
+$(OBJDIR)/%.o : $(SRCDIR)/%.c $(DEPDIR)/%.d | $(DEPDIR)
 	$(COMPILE.c) $@ $<
 	@$(POSTCOMPILE)
-
-$(OBJDIR):
-	@$(MKDIR)
 
 $(DEPDIR):
 	@$(MKDIR)
