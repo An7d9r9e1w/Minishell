@@ -25,28 +25,26 @@ char	*rl_gets(void)
 	return (line_read);
 }
 
-void	test_parser(t_token **tokens) //TEST
+int	test_parser(t_token **tokens) //TEST
 {
 	char	*line_read;
 	char	*line_begin;
+	int		token_stat;
 	int		i;
 
 	line_read = rl_gets();
 	if (!line_read)//TEST
-		return ;//TEST
+		return (0);//TEST
 	line_begin = line_read;
-	//printf("line=%s\n", line_read);//TEST
-	*tokens = get_token(&line_read);
+	token_stat = get_token(&line_read, tokens);
 	i = 0;
-	//printf("%2d. %s %p\n", i, line_read, *tokens);//TEST
-	while (tokens[i++])
-	{
-		//printf("token=%s %d\n", tokens[i]->value, tokens[i]->kind);//TEST
-		tokens[i] = get_token(&line_read);
-		//printf("%2d. %s\n", i, line_read);//TEST
-	}
-	//tokens[i] = 0;
+	while (!token_stat)
+		token_stat = get_token(&line_read, tokens + ++i);
 	free(line_begin);
+	if (token_stat == -1)
+		while (i >= 0)
+			token_free(tokens[i--]);
+	return (token_stat);
 }
 
 void	token_print(t_token *token)//TEST
@@ -69,12 +67,14 @@ int	main(int argc, char *argv[], char *envp[])
 
 	//while (1)
 	//{
-		test_parser(tokens); //TEST
-		for (int i = 0; tokens[i]; i++)//TEST
-		{
-			token_print(tokens[i]);//TEST
-			token_free(tokens[i]);//TEST
-		}
+		if (test_parser(tokens) == -1 || errno == ENOMEM)//TEST
+			perror("TEST"); //TEST
+		else
+			for (int i = 0; tokens[i]; i++)//TEST
+			{
+				token_print(tokens[i]);//TEST
+				token_free(tokens[i]);//TEST
+			}
 	//}
 	paused();
 	return (0);

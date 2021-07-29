@@ -5,35 +5,39 @@
 #include <string_utils.h>
 #include <char_checkers.h>
 
-t_token	*get_word(char **line_read);
+//t_token	*get_word(char **line_read);
+int	get_word(char **line_read, t_token **token);
 
-static t_token	*get_operator(char **line_read, char op, char dop)
+static int	get_operator(char **line_read, t_token **token, char op, char dop)
 {
 	if (*(*line_read - 1) == **line_read)
 	{
 		(*line_read)++;
-		return (token_create(0, dop));
+		*token = token_create(0, dop);
+		return (-!*token);
 	}
-	return (token_create(0, op));
+	*token = token_create(0, op);
+	return (-!*token);
 }
 
-t_token	*get_token(char **line_read)
+//t_token	*get_token(char **line_read)
+int	get_token(char **line_read, t_token **token)
 {
 	char	ch;
 
 	if (!**line_read)
-		return (0);
+		return (1);
 	drop_blanks(line_read);
 	ch = *(*line_read)++;
 	if (ch == '<')
-		return (get_operator(line_read, LESS, DLESS));
+		return (get_operator(line_read, token, LESS, DLESS));
 	if (ch == '>')
-		return (get_operator(line_read, GREAT, DGREAT));
+		return (get_operator(line_read, token, GREAT, DGREAT));
 	if (ch == '&')
-		return (get_operator(line_read, ERROR, AND));
+		return (get_operator(line_read, token, ERROR, AND));
 	if (ch == '|')
-		return (get_operator(line_read, PIPE, OR));
+		return (get_operator(line_read, token, PIPE, OR));
 	(*line_read)--;
-	return (get_word(line_read));
+	return (get_word(line_read, token));
 //WILDCARD
 }

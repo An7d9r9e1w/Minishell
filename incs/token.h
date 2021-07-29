@@ -24,7 +24,7 @@ typedef struct s_token
 	t_kind	kind;
 }	t_token;
 
-t_token	*get_token(char **line_read);//TEST
+int		get_token(char **line_read, t_token **token);//TEST
 t_token *token_create(char *value, t_kind kind);
 void	token_free(t_token *token);
 
