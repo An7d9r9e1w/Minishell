@@ -2,9 +2,18 @@
 #include <readline/history.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/errno.h>//TEST
 
 #include <token.h>
 #include <string_utils.h>//TEST
+
+void	paused(void)//TEST
+{
+	char	c[2];
+
+	printf("Press enter...");
+	fgets(c, 2, stdin);
+}
 
 char	*rl_gets(void)
 {
@@ -23,6 +32,8 @@ void	test_parser(t_token **tokens) //TEST
 	int		i;
 
 	line_read = rl_gets();
+	if (!line_read)//TEST
+		return ;//TEST
 	line_begin = line_read;
 	//printf("line=%s\n", line_read);//TEST
 	*tokens = get_token(&line_read);
@@ -65,5 +76,6 @@ int	main(int argc, char *argv[], char *envp[])
 			token_free(tokens[i]);//TEST
 		}
 	//}
+	paused();
 	return (0);
 }

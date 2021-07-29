@@ -59,7 +59,7 @@ char	*mstrcat(char *dst, const char *src, unsigned int srclen)
 	dst -= str_cur - str;
 	while (*src)
 		*str_cur++ = *src++;
-	*str_len = 0;
+	*str_cur = 0;
 	if (dst)
 		free(dst);
 	return (str);

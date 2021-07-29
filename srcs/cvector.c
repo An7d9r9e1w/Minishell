@@ -61,9 +61,8 @@ int	cvector_write(t_cvector *cv, char *str, unsigned int length)
 	capacity = cv->capacity;
 	while (cv->size + 1 + length > capacity)
 		capacity <<= 1;
-	if (capacity > cv->capacity)
-		if (cvector_realloc(cv, capacity))
-			return (1);
+	if (capacity > cv->capacity && cvector_realloc(cv, capacity) == -1)
+		return (-1);
 	cv_cur = cv->arr + cv->size;
 	while (length--)
 		*cv_cur++ = *str++;
