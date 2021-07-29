@@ -1,11 +1,8 @@
 #include <stdlib.h>
-#include <stdio.h>//TEST
 
 #include <token.h>
 #include <string_utils.h>
-#include <char_checkers.h>
 
-//t_token	*get_word(char **line_read);
 int	get_word(char **line_read, t_token **token);
 
 static int	get_operator(char **line_read, t_token **token, char op, char dop)
@@ -20,7 +17,6 @@ static int	get_operator(char **line_read, t_token **token, char op, char dop)
 	return (-!*token);
 }
 
-//t_token	*get_token(char **line_read)
 int	get_token(char **line_read, t_token **token)
 {
 	char	ch;
