@@ -1,5 +1,15 @@
-#include <readline/readline.h>
-#include <readline/history.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/31 10:03:01 by nnamor            #+#    #+#             */
+/*   Updated: 2021/07/31 10:03:03 by nnamor           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/errno.h>//TEST
@@ -26,35 +36,22 @@ void	token_print(t_token *token)//TEST
 		(token->kind == WORD) ? token->value : values[token->kind]);
 }
 
-char	*rl_gets(void)
-{
-	char	*line_read;
-
-	line_read = readline("msh-1.0$ ");
-	if (line_read && *line_read)
-		add_history(line_read);
-	return (line_read);
-}
-
 int	test_parser(t_token_stream *ts) //TEST
 {
 	t_token	*token;
-	char	*line_read;
-	char	*line_begin;
 	int		token_stat;
 
-	line_read = rl_gets();
-	if (!line_read)//TEST
-		return (0);//TEST
-	line_begin = line_read;
-	token_stat = ts_get_token(ts, &line_read, &token);
+	if (ts_read(ts) == -1) //TEST
+		return (0);
+	token_stat = ts_get_token(ts, &token);
 	while (!token_stat)
 	{
 		token_print(token);
 		token_free(token);
-		token_stat = ts_get_token(ts, &line_read, &token);
+		token_stat = ts_get_token(ts, &token);
 	}
-	free(line_begin);
+	if (token_stat == -1)
+		perror("TOKEN");
 	ts_free(ts);
 	return (token_stat);
 }
@@ -67,7 +64,7 @@ int	main(int argc, char *argv[], char *envp[])
 	(void)argv;
 	(void)envp;
 
-	ts = ts_create();
+	ts = ts_create("msh-1.0$ ");
 	if (!ts)
 	{
 		perror("Token_stream:");//TEST
