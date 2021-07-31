@@ -142,221 +142,221 @@ minishell/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/build
 .PHONY : minishell/fast
 
-function_cd.o: function_cd.c.o
+srcs/function_cd.o: srcs/function_cd.c.o
 
-.PHONY : function_cd.o
-
-# target to build an object file
-function_cd.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/function_cd.c.o
-.PHONY : function_cd.c.o
-
-function_cd.i: function_cd.c.i
-
-.PHONY : function_cd.i
-
-# target to preprocess a source file
-function_cd.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/function_cd.c.i
-.PHONY : function_cd.c.i
-
-function_cd.s: function_cd.c.s
-
-.PHONY : function_cd.s
-
-# target to generate assembly for a file
-function_cd.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/function_cd.c.s
-.PHONY : function_cd.c.s
-
-function_echo.o: function_echo.c.o
-
-.PHONY : function_echo.o
+.PHONY : srcs/function_cd.o
 
 # target to build an object file
-function_echo.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/function_echo.c.o
-.PHONY : function_echo.c.o
+srcs/function_cd.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/function_cd.c.o
+.PHONY : srcs/function_cd.c.o
 
-function_echo.i: function_echo.c.i
+srcs/function_cd.i: srcs/function_cd.c.i
 
-.PHONY : function_echo.i
+.PHONY : srcs/function_cd.i
 
 # target to preprocess a source file
-function_echo.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/function_echo.c.i
-.PHONY : function_echo.c.i
+srcs/function_cd.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/function_cd.c.i
+.PHONY : srcs/function_cd.c.i
 
-function_echo.s: function_echo.c.s
+srcs/function_cd.s: srcs/function_cd.c.s
 
-.PHONY : function_echo.s
+.PHONY : srcs/function_cd.s
 
 # target to generate assembly for a file
-function_echo.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/function_echo.c.s
-.PHONY : function_echo.c.s
+srcs/function_cd.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/function_cd.c.s
+.PHONY : srcs/function_cd.c.s
 
-function_env.o: function_env.c.o
+srcs/function_echo.o: srcs/function_echo.c.o
 
-.PHONY : function_env.o
+.PHONY : srcs/function_echo.o
 
 # target to build an object file
-function_env.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/function_env.c.o
-.PHONY : function_env.c.o
+srcs/function_echo.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/function_echo.c.o
+.PHONY : srcs/function_echo.c.o
 
-function_env.i: function_env.c.i
+srcs/function_echo.i: srcs/function_echo.c.i
 
-.PHONY : function_env.i
+.PHONY : srcs/function_echo.i
 
 # target to preprocess a source file
-function_env.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/function_env.c.i
-.PHONY : function_env.c.i
+srcs/function_echo.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/function_echo.c.i
+.PHONY : srcs/function_echo.c.i
 
-function_env.s: function_env.c.s
+srcs/function_echo.s: srcs/function_echo.c.s
 
-.PHONY : function_env.s
+.PHONY : srcs/function_echo.s
 
 # target to generate assembly for a file
-function_env.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/function_env.c.s
-.PHONY : function_env.c.s
+srcs/function_echo.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/function_echo.c.s
+.PHONY : srcs/function_echo.c.s
 
-function_export.o: function_export.c.o
+srcs/function_env.o: srcs/function_env.c.o
 
-.PHONY : function_export.o
+.PHONY : srcs/function_env.o
 
 # target to build an object file
-function_export.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/function_export.c.o
-.PHONY : function_export.c.o
+srcs/function_env.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/function_env.c.o
+.PHONY : srcs/function_env.c.o
 
-function_export.i: function_export.c.i
+srcs/function_env.i: srcs/function_env.c.i
 
-.PHONY : function_export.i
+.PHONY : srcs/function_env.i
 
 # target to preprocess a source file
-function_export.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/function_export.c.i
-.PHONY : function_export.c.i
+srcs/function_env.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/function_env.c.i
+.PHONY : srcs/function_env.c.i
 
-function_export.s: function_export.c.s
+srcs/function_env.s: srcs/function_env.c.s
 
-.PHONY : function_export.s
+.PHONY : srcs/function_env.s
 
 # target to generate assembly for a file
-function_export.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/function_export.c.s
-.PHONY : function_export.c.s
+srcs/function_env.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/function_env.c.s
+.PHONY : srcs/function_env.c.s
 
-function_pwd.o: function_pwd.c.o
+srcs/function_export.o: srcs/function_export.c.o
 
-.PHONY : function_pwd.o
+.PHONY : srcs/function_export.o
 
 # target to build an object file
-function_pwd.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/function_pwd.c.o
-.PHONY : function_pwd.c.o
+srcs/function_export.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/function_export.c.o
+.PHONY : srcs/function_export.c.o
 
-function_pwd.i: function_pwd.c.i
+srcs/function_export.i: srcs/function_export.c.i
 
-.PHONY : function_pwd.i
+.PHONY : srcs/function_export.i
 
 # target to preprocess a source file
-function_pwd.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/function_pwd.c.i
-.PHONY : function_pwd.c.i
+srcs/function_export.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/function_export.c.i
+.PHONY : srcs/function_export.c.i
 
-function_pwd.s: function_pwd.c.s
+srcs/function_export.s: srcs/function_export.c.s
 
-.PHONY : function_pwd.s
+.PHONY : srcs/function_export.s
 
 # target to generate assembly for a file
-function_pwd.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/function_pwd.c.s
-.PHONY : function_pwd.c.s
+srcs/function_export.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/function_export.c.s
+.PHONY : srcs/function_export.c.s
 
-function_unset.o: function_unset.c.o
+srcs/function_pwd.o: srcs/function_pwd.c.o
 
-.PHONY : function_unset.o
+.PHONY : srcs/function_pwd.o
 
 # target to build an object file
-function_unset.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/function_unset.c.o
-.PHONY : function_unset.c.o
+srcs/function_pwd.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/function_pwd.c.o
+.PHONY : srcs/function_pwd.c.o
 
-function_unset.i: function_unset.c.i
+srcs/function_pwd.i: srcs/function_pwd.c.i
 
-.PHONY : function_unset.i
+.PHONY : srcs/function_pwd.i
 
 # target to preprocess a source file
-function_unset.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/function_unset.c.i
-.PHONY : function_unset.c.i
+srcs/function_pwd.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/function_pwd.c.i
+.PHONY : srcs/function_pwd.c.i
 
-function_unset.s: function_unset.c.s
+srcs/function_pwd.s: srcs/function_pwd.c.s
 
-.PHONY : function_unset.s
+.PHONY : srcs/function_pwd.s
 
 # target to generate assembly for a file
-function_unset.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/function_unset.c.s
-.PHONY : function_unset.c.s
+srcs/function_pwd.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/function_pwd.c.s
+.PHONY : srcs/function_pwd.c.s
 
-main.o: main.c.o
+srcs/function_unset.o: srcs/function_unset.c.o
 
-.PHONY : main.o
+.PHONY : srcs/function_unset.o
 
 # target to build an object file
-main.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/main.c.o
-.PHONY : main.c.o
+srcs/function_unset.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/function_unset.c.o
+.PHONY : srcs/function_unset.c.o
 
-main.i: main.c.i
+srcs/function_unset.i: srcs/function_unset.c.i
 
-.PHONY : main.i
+.PHONY : srcs/function_unset.i
 
 # target to preprocess a source file
-main.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/main.c.i
-.PHONY : main.c.i
+srcs/function_unset.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/function_unset.c.i
+.PHONY : srcs/function_unset.c.i
 
-main.s: main.c.s
+srcs/function_unset.s: srcs/function_unset.c.s
 
-.PHONY : main.s
+.PHONY : srcs/function_unset.s
 
 # target to generate assembly for a file
-main.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/main.c.s
-.PHONY : main.c.s
+srcs/function_unset.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/function_unset.c.s
+.PHONY : srcs/function_unset.c.s
 
-utils.o: utils.c.o
+srcs/main.o: srcs/main.c.o
 
-.PHONY : utils.o
+.PHONY : srcs/main.o
 
 # target to build an object file
-utils.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/utils.c.o
-.PHONY : utils.c.o
+srcs/main.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/main.c.o
+.PHONY : srcs/main.c.o
 
-utils.i: utils.c.i
+srcs/main.i: srcs/main.c.i
 
-.PHONY : utils.i
+.PHONY : srcs/main.i
 
 # target to preprocess a source file
-utils.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/utils.c.i
-.PHONY : utils.c.i
+srcs/main.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/main.c.i
+.PHONY : srcs/main.c.i
 
-utils.s: utils.c.s
+srcs/main.s: srcs/main.c.s
 
-.PHONY : utils.s
+.PHONY : srcs/main.s
 
 # target to generate assembly for a file
-utils.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/utils.c.s
-.PHONY : utils.c.s
+srcs/main.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/main.c.s
+.PHONY : srcs/main.c.s
+
+srcs/utils.o: srcs/utils.c.o
+
+.PHONY : srcs/utils.o
+
+# target to build an object file
+srcs/utils.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/utils.c.o
+.PHONY : srcs/utils.c.o
+
+srcs/utils.i: srcs/utils.c.i
+
+.PHONY : srcs/utils.i
+
+# target to preprocess a source file
+srcs/utils.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/utils.c.i
+.PHONY : srcs/utils.c.i
+
+srcs/utils.s: srcs/utils.c.s
+
+.PHONY : srcs/utils.s
+
+# target to generate assembly for a file
+srcs/utils.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/srcs/utils.c.s
+.PHONY : srcs/utils.c.s
 
 # Help Target
 help:
@@ -367,30 +367,30 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... minishell"
-	@echo "... function_cd.o"
-	@echo "... function_cd.i"
-	@echo "... function_cd.s"
-	@echo "... function_echo.o"
-	@echo "... function_echo.i"
-	@echo "... function_echo.s"
-	@echo "... function_env.o"
-	@echo "... function_env.i"
-	@echo "... function_env.s"
-	@echo "... function_export.o"
-	@echo "... function_export.i"
-	@echo "... function_export.s"
-	@echo "... function_pwd.o"
-	@echo "... function_pwd.i"
-	@echo "... function_pwd.s"
-	@echo "... function_unset.o"
-	@echo "... function_unset.i"
-	@echo "... function_unset.s"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
-	@echo "... utils.o"
-	@echo "... utils.i"
-	@echo "... utils.s"
+	@echo "... srcs/function_cd.o"
+	@echo "... srcs/function_cd.i"
+	@echo "... srcs/function_cd.s"
+	@echo "... srcs/function_echo.o"
+	@echo "... srcs/function_echo.i"
+	@echo "... srcs/function_echo.s"
+	@echo "... srcs/function_env.o"
+	@echo "... srcs/function_env.i"
+	@echo "... srcs/function_env.s"
+	@echo "... srcs/function_export.o"
+	@echo "... srcs/function_export.i"
+	@echo "... srcs/function_export.s"
+	@echo "... srcs/function_pwd.o"
+	@echo "... srcs/function_pwd.i"
+	@echo "... srcs/function_pwd.s"
+	@echo "... srcs/function_unset.o"
+	@echo "... srcs/function_unset.i"
+	@echo "... srcs/function_unset.s"
+	@echo "... srcs/main.o"
+	@echo "... srcs/main.i"
+	@echo "... srcs/main.s"
+	@echo "... srcs/utils.o"
+	@echo "... srcs/utils.i"
+	@echo "... srcs/utils.s"
 .PHONY : help
 
 

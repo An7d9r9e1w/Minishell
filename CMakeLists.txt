@@ -3,5 +3,5 @@ project(minishell C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(minishell main.c function_unset.c utils.c function_env.c
-        function_pwd.c function_echo.c function_cd.c function_export.c)
+add_executable(minishell srcs/main.c srcs/function_unset.c srcs/utils.c srcs/function_env.c
+        srcs/function_pwd.c srcs/function_echo.c srcs/function_cd.c srcs/function_export.c srcs/parser_env.c)

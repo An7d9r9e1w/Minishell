@@ -1,11 +1,11 @@
-#include "function_export.h"
+#include "../headers/function_export.h"
 
 static int validate_env(const char *str)
 {
 	int i;
 
 	i = 0;
-	if (str[i] >= '0'&& str[i] <= '9' || str[i] == '=')
+	if ((str[i] >= '0'&& str[i] <= '9') || str[i] == '=')
 	{
 		write(2, "export: not an identifier: ", 27);
 		while (*str && *str != '=')
@@ -39,7 +39,7 @@ int msh_export(char **args, char **env)
 			env[1] = NULL;
 		}
 		else
-			return (0);
+			return (1);
 	}
 	return (1);
 }

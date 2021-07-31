@@ -1,4 +1,4 @@
-#include "function_pwd.h"
+#include "../headers/function_pwd.h"
 
 int msh_pwd(char **args)
 {

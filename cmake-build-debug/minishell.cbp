@@ -78,52 +78,28 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/Users/ejina/minishell/function_cd.c">
+		<Unit filename="/Users/ejina/minishell/srcs/function_cd.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/ejina/minishell/function_cd.h">
+		<Unit filename="/Users/ejina/minishell/srcs/function_echo.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/ejina/minishell/function_echo.c">
+		<Unit filename="/Users/ejina/minishell/srcs/function_env.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/ejina/minishell/function_echo.h">
+		<Unit filename="/Users/ejina/minishell/srcs/function_export.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/ejina/minishell/function_env.c">
+		<Unit filename="/Users/ejina/minishell/srcs/function_pwd.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/ejina/minishell/function_env.h">
+		<Unit filename="/Users/ejina/minishell/srcs/function_unset.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/ejina/minishell/function_export.c">
+		<Unit filename="/Users/ejina/minishell/srcs/main.c">
 			<Option target="minishell"/>
 		</Unit>
-		<Unit filename="/Users/ejina/minishell/function_export.h">
-			<Option target="minishell"/>
-		</Unit>
-		<Unit filename="/Users/ejina/minishell/function_pwd.c">
-			<Option target="minishell"/>
-		</Unit>
-		<Unit filename="/Users/ejina/minishell/function_pwd.h">
-			<Option target="minishell"/>
-		</Unit>
-		<Unit filename="/Users/ejina/minishell/function_unset.c">
-			<Option target="minishell"/>
-		</Unit>
-		<Unit filename="/Users/ejina/minishell/function_unset.h">
-			<Option target="minishell"/>
-		</Unit>
-		<Unit filename="/Users/ejina/minishell/main.c">
-			<Option target="minishell"/>
-		</Unit>
-		<Unit filename="/Users/ejina/minishell/main.h">
-			<Option target="minishell"/>
-		</Unit>
-		<Unit filename="/Users/ejina/minishell/utils.c">
-			<Option target="minishell"/>
-		</Unit>
-		<Unit filename="/Users/ejina/minishell/utils.h">
+		<Unit filename="/Users/ejina/minishell/srcs/utils.c">
 			<Option target="minishell"/>
 		</Unit>
 		<Unit filename="/Users/ejina/minishell/CMakeLists.txt">

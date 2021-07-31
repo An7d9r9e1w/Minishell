@@ -1,4 +1,4 @@
-#include "function_env.h"
+#include "../headers/function_env.h"
 
 int msh_env(char **args, char **env)
 {
