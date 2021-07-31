@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 10:02:27 by nnamor            #+#    #+#             */
-/*   Updated: 2021/07/31 10:02:28 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/07/31 13:59:17 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ typedef enum e_kind
 {
 	ERROR,
 	WORD,
-	QUOTE,
-	DQUOTE,
 	GREAT,
 	DGREAT,
 	LESS,
 	DLESS,
+	QUOTE,
+	DQUOTE,
 	PIPE,
 	ENV,
 	AND,
