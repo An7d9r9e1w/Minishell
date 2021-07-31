@@ -28,6 +28,24 @@ char	*mstrdup(const char *str)
 	return (dup);
 }
 
+int		mstrlcpy(char *dst, const char *src, int dstsize)
+{
+	int	srcsize;
+
+	if (!dst || !src)
+		return (0);
+	srcsize = mstrlen(src);
+	if (dstsize > 0)
+	{
+		if (dstsize > srcsize + 1)
+			dstsize = srcsize + 1;
+		while (dstsize--)
+			*dst++ = *src++;
+		*dst = 0;
+	}
+	return (srcsize);
+}
+
 void	drop_blanks(char **str)
 {
 	char	*cur;
