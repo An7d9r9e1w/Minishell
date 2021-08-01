@@ -59,7 +59,7 @@ int	error(int err_n, char *add_msg, int print)
 	return (-1);
 }
 
-void	*error_void(int err_n)
+void	*error_p(int err_n)
 {
 	error(err_n, 0, 0);
 	return (0);
