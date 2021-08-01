@@ -6,21 +6,22 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 10:03:14 by nnamor            #+#    #+#             */
-/*   Updated: 2021/07/31 10:03:15 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/01 07:03:48 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string_utils.h>
 #include <stdlib.h>
+
+#include <string_utils.h>
+#include <error.h>
 
 int	mstrlen(const char *str)
 {
 	const char *const	begin = str;
 
-	if (!str)
-		return (-1);
-	while (*str)
-		str++;
+	if (str)
+		while (*str)
+			str++;
 	return (str - begin);
 }
 
@@ -31,7 +32,7 @@ char	*mstrdup(const char *str)
 
 	dup = malloc(mstrlen(str) + 1);
 	if (!dup)
-		return (0);
+		return (error_p(-1));
 	p = dup;
 	if (str)
 		while (*str)
@@ -62,10 +63,13 @@ void	drop_blanks(char **str)
 {
 	char	*cur;
 
-	cur = *str;
-	while (*cur == ' ' || (*cur >= '\t' && *cur <= '\r'))
-		cur++;
-	*str = cur;
+	if (str && *str)
+	{
+		cur = *str;
+		while (*cur == ' ' || (*cur >= '\t' && *cur <= '\r'))
+			cur++;
+		*str = cur;
+	}
 }
 
 char	*mstrcat(char *dst, const char *src, unsigned int srclen)
@@ -82,10 +86,11 @@ char	*mstrcat(char *dst, const char *src, unsigned int srclen)
 		dstlen = 0;
 	str = malloc(sizeof(char) * (dstlen + srclen + 1));
 	if (!str)
-		return (0);
+		return (error_p(-1));
 	str_cur = str;
-	while (*dst)
-		*str_cur++ = *dst++;
+	if (dst)
+		while (*dst)
+			*str_cur++ = *dst++;
 	dst -= str_cur - str;
 	while (*src)
 		*str_cur++ = *src++;

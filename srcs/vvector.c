@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 10:04:08 by nnamor            #+#    #+#             */
-/*   Updated: 2021/07/31 10:04:09 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/01 09:33:08 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_vvector	*vvector_create(void)
 	vv = malloc(sizeof(t_vvector));
 	if (!vv)
 		return (0);
-	vv->capacity = 16;//1024 / sizeof(void *);
+	vv->capacity = VV_CAPACITY;
 	vv->arr = malloc(sizeof(void *) * vv->capacity);
 	if (!vv->arr)
 	{
@@ -32,7 +32,7 @@ t_vvector	*vvector_create(void)
 	return (vv);
 }
 
-void		vvector_free(t_vvector *vv)
+void	vvector_free(t_vvector *vv)
 {
 	if (vv)
 	{
@@ -65,7 +65,7 @@ static int	vvector_realloc(t_vvector *vv, unsigned int new_size)
 	return (0);
 }
 
-int			vvector_put(t_vvector *vv, void *data)
+int	vvector_put(t_vvector *vv, void *data)
 {
 	if (!data)
 		return (-1);
@@ -76,9 +76,12 @@ int			vvector_put(t_vvector *vv, void *data)
 	return (0);
 }
 
-int			vvector_cut(t_vvector *vv)
+int	vvector_erase(t_vvector *vv, unsigned int index)
 {
-	if (vv->size == vv->capacity)
-		return (0);
-	return (vvector_realloc(vv, vv->size));
+	if (index >= vv->size)
+		return (-1);
+	free(vv->arr[index]);
+	if (--vv->size)
+		vv->arr[index] = vv->arr[vv->size];
+	return (0);
 }
