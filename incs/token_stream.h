@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 10:02:34 by nnamor            #+#    #+#             */
-/*   Updated: 2021/07/31 10:02:36 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/07/31 16:19:27 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_token_stream
 
 t_token_stream	*ts_create(char *prompt);
 int				ts_read(t_token_stream *ts);
-int				ts_get_token(t_token_stream *ts, t_token **token);
+t_token			*ts_get_token(t_token_stream *ts);
 int				ts_putback(t_token_stream *ts, t_token *token);
 void			ts_free(t_token_stream *ts);
 

@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 10:03:42 by nnamor            #+#    #+#             */
-/*   Updated: 2021/07/31 10:03:42 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/07/31 18:20:04 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,37 +15,46 @@
 #include <token.h>
 #include <string_utils.h>
 
-int	get_word(char **line_read, t_token **token);
+t_token	*get_word(char **line_read);
 
-static int	get_operator(char **line_read, t_token **token, char op, char dop)
+static t_token	*get_operator(char **line_read, char op, char dop)
 {
+	t_token	*token;
+	char	*value;
+
 	if (*(*line_read - 1) == **line_read)
 	{
 		(*line_read)++;
-		*token = token_create(0, dop);
-		return (-!*token);
+		op = dop;
+		value = mstrcat(0, *line_read - 1, 2);
 	}
-	*token = token_create(0, op);
-	return (-!*token);
+	else
+		value = mstrcat(0, *line_read - 1, 1);
+	if (!value)
+		return (0);
+	token = token_create(value, op);
+	if (!token)
+		free(value);
+	return (token);
 }
 
-int	get_token(char **line_read, t_token **token)
+t_token	*get_token(char **line_read)
 {
 	char	ch;
 
 	if (!**line_read)
-		return (1);
+		return (0);
 	drop_blanks(line_read);
 	ch = *(*line_read)++;
 	if (ch == '<')
-		return (get_operator(line_read, token, LESS, DLESS));
+		return (get_operator(line_read, LESS, DLESS));
 	if (ch == '>')
-		return (get_operator(line_read, token, GREAT, DGREAT));
+		return (get_operator(line_read, GREAT, DGREAT));
 	if (ch == '&')
-		return (get_operator(line_read, token, ERROR, AND));
+		return (get_operator(line_read, ERROR, AND));
 	if (ch == '|')
-		return (get_operator(line_read, token, PIPE, OR));
+		return (get_operator(line_read, PIPE, OR));
 	(*line_read)--;
-	return (get_word(line_read, token));
+	return (get_word(line_read));
 //WILDCARD
 }

@@ -6,13 +6,14 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 10:02:54 by nnamor            #+#    #+#             */
-/*   Updated: 2021/07/31 10:02:55 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/07/31 18:45:58 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
 #include <cvector.h>
+#include <error.h>
 
 static int	cvector_realloc(t_cvector *cv, unsigned int new_size)
 {
@@ -21,11 +22,9 @@ static int	cvector_realloc(t_cvector *cv, unsigned int new_size)
 	char			*cv_cur;
 	unsigned int	count;
 
-	if (!new_size)
-		return (-1);
 	arr = malloc(sizeof(char) * new_size);
 	if (!arr)
-		return (-1);
+		return (error(-1, 0, 0));
 	if (new_size < cv->size)
 		cv->size = new_size;
 	count = cv->size;
@@ -45,13 +44,14 @@ t_cvector	*cvector_create(void)
 
 	cv = malloc(sizeof(t_cvector));
 	if (!cv)
-		return (0);
+		return (error_p(-1));
 	cv->capacity = 1024;
 	cv->size = 0;
 	cv->arr = malloc(sizeof(char) * cv->capacity);
 	if (cv->arr)
 		return (cv);
 	free(cv);
+	error(-1, 0, 0);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 10:03:36 by nnamor            #+#    #+#             */
-/*   Updated: 2021/07/31 10:03:37 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/01 07:02:41 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 #include <token_stream.h>
 #include <string_utils.h>
+#include <error.h>
 
 t_token_stream	*ts_create(char *prompt)
 {
@@ -24,7 +25,7 @@ t_token_stream	*ts_create(char *prompt)
 
 	ts = malloc(sizeof(t_token_stream));
 	if (!ts)
-		return (0);
+		return (error_p(-1));
 	ts->line_read = 0;
 	ts->line_cur = 0;
 	ts->prompt = prompt;
@@ -59,22 +60,18 @@ void	ts_free(t_token_stream *ts)
 int	ts_putback(t_token_stream *ts, t_token *token)
 {
 	if (ts->full)
-	{
-		write(2, EFULLBUF, mstrlen(EFULLBUF));
-		return (-1);
-	}
+		return (error(EFULLBUF));
 	ts->buffer = token;
 	ts->full = 1;
 	return (0);
 }
 
-int	ts_get_token(t_token_stream *ts, t_token **token)
+t_token	*ts_get_token(t_token_stream *ts)
 {
 	if (ts->full)
 	{
 		ts->full = 0;
-		*token = ts->buffer;
-		return (0);
+		return (ts->buffer);
 	}
-	return (get_token(&ts->line_cur, token));
+	return (get_token(&ts->line_cur));
 }

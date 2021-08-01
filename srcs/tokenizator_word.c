@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 10:03:48 by nnamor            #+#    #+#             */
-/*   Updated: 2021/07/31 10:03:49 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/07/31 18:06:48 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <string_utils.h>
 #include <char_checkers.h>
 #include <cvector.h>
+#include <error.h>
 
 #ifdef BUFFERSIZE
 # undef BUFFERSIZE
@@ -111,26 +112,29 @@ static int	get_sequence(char **line_read, t_cvector *cv)
 	return (get_simple_word(line_read, cv));
 }
 
-int	get_word(char **line_read, t_token **token)
+t_token	*get_word(char **line_read)
 {
 	t_cvector	*cv;
+	t_token		*token;
 	char		*word;
 
 	cv = cvector_create();
 	if (!cv)
-		return (-1);
+		return (0);
 	while (**line_read && !is_space(**line_read))
 	{
 		if (get_sequence(line_read, cv) == -1)
 		{
 			cvector_free(cv);
-			return (-1);
+			return (0);
 		}
 	}
 	word = mstrdup(cv->arr);
 	cvector_free(cv);
 	if (!word)
-		return (-1);
-	*token = token_create(word, WORD);
-	return (-!*token);
+		return (0);
+	token = token_create(word, WORD);
+	if (!token)
+		free(word);
+	return (token);
 }

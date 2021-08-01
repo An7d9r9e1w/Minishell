@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 10:03:01 by nnamor            #+#    #+#             */
-/*   Updated: 2021/07/31 10:03:03 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/07/31 16:17:59 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 #include <token_stream.h>
 #include <string_utils.h>//TEST
+#include <error.h>
 
 void	paused(void)//TEST
 {
@@ -39,21 +40,19 @@ void	token_print(t_token *token)//TEST
 int	test_parser(t_token_stream *ts) //TEST
 {
 	t_token	*token;
-	int		token_stat;
+	//int		token_stat;
 
 	if (ts_read(ts) == -1) //TEST
 		return (0);
-	token_stat = ts_get_token(ts, &token);
-	while (!token_stat)
+	token = ts_get_token(ts);
+	while (token)
 	{
 		token_print(token);
 		token_free(token);
-		token_stat = ts_get_token(ts, &token);
+		token = ts_get_token(ts);
 	}
-	if (token_stat == -1)
-		perror("TOKEN");
-	ts_free(ts);
-	return (token_stat);
+	ts_free(ts);//TEST
+	return (error(-2));
 }
 
 int	main(int argc, char *argv[], char *envp[])
@@ -72,8 +71,8 @@ int	main(int argc, char *argv[], char *envp[])
 	}
 	//while (1)
 	//{
-		if (test_parser(ts) == -1)//TEST
-			perror("TEST"); //TEST
+		if (test_parser(ts))//TEST
+			error_msg(); //TEST
 	//}
 	paused();
 	return (0);
