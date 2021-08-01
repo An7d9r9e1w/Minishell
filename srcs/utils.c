@@ -1,6 +1,6 @@
-#include "../headers/utils.h"
+#include "../incs/utils.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+int	ft_strcmp(const void *s1, const void *s2)
 {
 	unsigned char	*s;
 	unsigned char	*r;
@@ -54,7 +54,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (p);
 }
 
-int	ft_strncmp(const char *s1, const char *s2, int n)
+int	ft_strncmp(const void *s1, const void *s2, int n)
 {
 	int				i;
 	unsigned char	*s;

@@ -32,7 +32,7 @@ char	*mstrdup(const char *str)
 
 	dup = malloc(mstrlen(str) + 1);
 	if (!dup)
-		return (error_p(-1));
+		return (0);//(error_p(-1));
 	p = dup;
 	if (str)
 		while (*str)
@@ -86,7 +86,7 @@ char	*mstrcat(char *dst, const char *src, unsigned int srclen)
 		dstlen = 0;
 	str = malloc(sizeof(char) * (dstlen + srclen + 1));
 	if (!str)
-		return (error_p(-1));
+		return (0); //(error_p(-1));
 	str_cur = str;
 	if (dst)
 		while (*dst)

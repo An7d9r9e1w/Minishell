@@ -1,4 +1,4 @@
-#include "../headers/function_echo.h"
+#include "../incs/function_echo.h"
 
 static void print_arg(char **args, int i)
 {

@@ -1,43 +1,52 @@
-#include "../headers/function_unset.h"
+#include "../incs/function_unset.h"
 
-static int index_env(const char *arg, char **env)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while(env[i])
-	{
-		j = 0;
-		while (env[i][j] == arg[j] && env[i][j] != '=')
-			j++;
-		if (env[i][j] == '=')
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
-int msh_unset(char **args, char **env)
+static int validate_env(const char *str)
 {
 	int i;
 
 	i = 0;
+	if ((str[i] >= '0'&& str[i] <= '9'))
+	{
+		printf("unset: %s: invalid parameter name\n", str);
+		return (0);
+	}
+	else if (str[i] == '=')
+	{
+		str++;
+		printf("msh: %s not found\n", str);
+		return (0);
+	}
+	while (str[i])
+	{
+		if (str[i] == '=')
+		{
+			printf("unset: %s: invalid parameter name\n", str);
+			return (0);
+		}
+		i++;
+	}
+	return (1);
+}
+
+int msh_unset(char **args, t_vvector *env)
+{
+	int index;
+	char *need_str;
+
+	need_str = NULL;
 	if (!args[1])
 	{
 		write(2, "unset: not enough arguments\n", 28);
-		return (0);
+		return (1);
 	}
-	i = index_env(args[1], env);
-	if (i != -1)
+	if (validate_env(args[1]))
 	{
-		env[i] = NULL;
-		while(env[i + 1])
-		{
-			env[i] = env[i + 1];//strdup?
-			i++;
-		}
-		env[i] = NULL;
+		need_str = get_str(args[1]);
+		index = vvector_get_index_n(env, need_str, mstrlen(need_str), ft_strncmp);
+		if (index != -1)
+			vvector_erase(env, index);
 	}
+	if (need_str)
+		free(need_str);
 	return (1);
 }

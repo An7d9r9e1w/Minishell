@@ -1,5 +1,5 @@
 SRCDIR := srcs
-INCDIR := headers
+INCDIR := incs
 OBJDIR := objs
 DEPDIR := $(OBJDIR)/.deps
 

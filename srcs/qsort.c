@@ -83,7 +83,7 @@ void	mqsort(void *base, size_t nel, size_t width,
 	if (--nel)
 	{
 		p = partition(base, nel, width, compar);
-		if (p == -1)
+		if (p == (size_t)-1)
 			return ;
 		mqsort(base, p + 1, width, compar);
 		mqsort((void *)((unsigned char *)base + (p + 1) * width),

@@ -12,6 +12,26 @@
 
 #include <vvector.h>
 
+int	vvector_get_index_n(t_vvector *env, void *to_find, int n,
+						 int	(*compare)(const void *, const void *, int n))
+{
+	unsigned int	size;
+	int index;
+
+	size = 0;
+	index = -1;
+	while (size < env->size)
+	{
+		if (compare(env->arr[size], to_find, n) == 0)
+		{
+			index = size;
+			return (index);
+		}
+		size++;
+	}
+	return (index);
+}
+
 int	vvector_get_index(t_vvector *vv, void *to_find,
 		int	(*compare)(const void *, const void *))
 {
@@ -21,7 +41,6 @@ int	vvector_get_index(t_vvector *vv, void *to_find,
 	if (!to_find || !compare)
 		return (-1);
 	arr_cur = vv->arr;
-	i = vv->arr;
 	i = vv->size;
 	while (i--)
 		if (!compare(arr_cur++, to_find))
@@ -30,7 +49,7 @@ int	vvector_get_index(t_vvector *vv, void *to_find,
 }
 
 void	*vvector_find(t_vvector *vv, void *to_find,
-			int (*compare)(const char *, const void *))
+			int (*compare)(const void *, const void *))
 {
 	int	index;
 

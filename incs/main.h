@@ -1,13 +1,15 @@
 #ifndef MAIN_H
 #define MAIN_H
-#include "../headers/parser_env.h"
-int msh_unset(char **args, char **env);
-int msh_env(char **args, char **env);
+#include "../incs/vvector.h"
+int msh_unset(char **args, t_vvector *env);
+int msh_env(char **args, t_vvector *env);
 int msh_pwd(char **args);
 int msh_echo(char **args);
-int	msh_cd(char **args, char **env);
-int msh_export(char **args, char **env);
+int	msh_cd(char **args, t_vvector *env);
+int msh_export(char **args, t_vvector *env);
 int msh_exit(char **args);
-int	ft_strcmp(const char *s1, const char *s2);
-t_list *get_env(char **env);
+int	ft_strcmp(const void *s1, const void *s2);
+int ft_strlen(const char *str);
+
+t_vvector *get_env(char **env);
 #endif
