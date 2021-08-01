@@ -1,43 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token.h                                            :+:      :+:    :+:   */
+/*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/31 10:02:27 by nnamor            #+#    #+#             */
-/*   Updated: 2021/07/31 16:57:53 by nnamor           ###   ########.fr       */
+/*   Created: 2021/07/31 10:03:26 by nnamor            #+#    #+#             */
+/*   Updated: 2021/07/31 15:32:46 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOKEN_H
-# define TOKEN_H
+#include <stdlib.h>
 
-typedef enum e_kind
+#include <token.h>
+#include <error.h>
+
+t_token	*token_create(char *value, t_kind kind)
 {
-	ERROR,
-	WORD,
-	GREAT,
-	DGREAT,
-	LESS,
-	DLESS,
-	QUOTE,
-	DQUOTE,
-	PIPE,
-	ENV,
-	AND,
-	OR,
-	WILDCARD
-}	t_kind;
+	t_token	*token;
 
-typedef struct s_token
+	token = malloc(sizeof(t_token));
+	if (!token)
+	{
+		if (value)
+			free(value);
+		return (error_p(-1));
+	}
+	token->value = value;
+	token->kind = kind;
+	return (token);
+}
+
+void	token_free(t_token *token)
 {
-	char	*value;
-	t_kind	kind;
-}	t_token;
-
-t_token *token_create(char *value, t_kind kind);
-t_token	*get_token(char **line_read);
-void	token_free(t_token *token);
-
-#endif	/*TOKEN_H*/
+	if (token)
+	{
+		if (token->value)
+			free(token->value);
+		free(token);
+	}
+}

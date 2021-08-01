@@ -1,43 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token.h                                            :+:      :+:    :+:   */
+/*   char_checkers.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/31 10:02:27 by nnamor            #+#    #+#             */
-/*   Updated: 2021/07/31 16:57:53 by nnamor           ###   ########.fr       */
+/*   Created: 2021/07/31 10:01:34 by nnamor            #+#    #+#             */
+/*   Updated: 2021/07/31 10:01:47 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOKEN_H
-# define TOKEN_H
+#ifndef CHAR_CHECKERS_H
+# define CHAR_CHECKERS_H
 
-typedef enum e_kind
-{
-	ERROR,
-	WORD,
-	GREAT,
-	DGREAT,
-	LESS,
-	DLESS,
-	QUOTE,
-	DQUOTE,
-	PIPE,
-	ENV,
-	AND,
-	OR,
-	WILDCARD
-}	t_kind;
+int	is_space(char c);
+int	is_spec(char c);
+int	is_word(char c);
 
-typedef struct s_token
-{
-	char	*value;
-	t_kind	kind;
-}	t_token;
-
-t_token *token_create(char *value, t_kind kind);
-t_token	*get_token(char **line_read);
-void	token_free(t_token *token);
-
-#endif	/*TOKEN_H*/
+#endif	/*CHAR_CHECKERS_H*/
