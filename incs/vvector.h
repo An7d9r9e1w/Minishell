@@ -6,17 +6,19 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 10:02:43 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/03 14:03:13 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/04 11:52:52 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VVECTOR_H
 # define VVECTOR_H
 
+# include <stdlib.h>
+
 # ifndef VV_CAPACITY
 #  define VV_CAPACITY 16
 # endif	/*VV_CAPACITY*/
-#include <stdlib.h>
+
 typedef struct s_vvector
 {
 	void			**arr;
@@ -38,7 +40,7 @@ int			vvector_erase(t_vvector *vv,
 int			vvector_get_index(t_vvector *vv, void *to_find,
 				int	(*compare)(const void *, const void *));
 int			vvector_get_index_n(t_vvector *vv, void *to_find, int n,
-						   int	(*compare)(const void *, const void *, int n));
+				int	(*compare)(const void *, const void *, int n));
 void		*vvector_find(t_vvector *vv, void *to_find,
 				int (*compare)(const void *, const void *));
 int			vvector_replace(t_vvector *vv, unsigned int index, void *data);

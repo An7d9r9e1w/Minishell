@@ -1,7 +1,4 @@
-/*#include "../headers/main.h"
-=======
-#include "../incs/main.h"
->>>>>>> origin/develop
+/*#include <main.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -181,9 +178,7 @@ int main(int argc, char **argv, char **env)
 			printf("Write right command\n");
 	}
 	return 0;
-}
-<<<<<<< HEAD
-=======*/
+}*/
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
