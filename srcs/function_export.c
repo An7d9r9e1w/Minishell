@@ -67,7 +67,7 @@ int msh_export(char **args, t_vvector *env)
 			str = mstrdup(args[1]);
 			index = vvector_get_index_n(env, need_str, mstrlen(need_str), ft_strncmp);
 			if (index != -1)
-				vvector_erase(env, index);
+				vvector_erase(env, index, free);
 			vvector_put(env, str);
 		}
 	}

@@ -44,7 +44,7 @@ int msh_unset(char **args, t_vvector *env)
 		need_str = get_str(args[1]);
 		index = vvector_get_index_n(env, need_str, mstrlen(need_str), ft_strncmp);
 		if (index != -1)
-			vvector_erase(env, index);
+			vvector_erase(env, index, free);
 	}
 	if (need_str)
 		free(need_str);

@@ -1,5 +1,19 @@
-#include "../incs/function_cd.h"
-#include "../incs/vvector.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   function_cd.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ejina  <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/08/04 11:05:25 by ejina             #+#    #+#             */
+/*   Updated: 2021/08/04 11:08:08 by nnamor           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <stdlib.h>
+
+#include <function_cd.h>
+#include <vvector.h>
 
 static int update_oldpwd(t_vvector *my_env)
 {
@@ -17,7 +31,7 @@ static int update_oldpwd(t_vvector *my_env)
 	{
 		if (!ft_strncmp(my_env->arr[i], "OLDPWD=", 7))
 		{
-			vvector_erase(my_env, i);
+			vvector_erase(my_env, i, free);
 			vvector_put(my_env, oldpwd);
 			return (1);
 		}
@@ -43,7 +57,7 @@ static int update_pwd(t_vvector *my_env)
 	{
 		if (!ft_strncmp(my_env->arr[i], "PWD=", 4))
 		{
-			vvector_erase(my_env, i);
+			vvector_erase(my_env, i, free);
 			vvector_put(my_env, pwd);
 			return (1);
 		}
