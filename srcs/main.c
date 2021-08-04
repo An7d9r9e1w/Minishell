@@ -193,9 +193,10 @@ int main(int argc, char **argv, char **env)
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/errno.h>//TEST
+//#include <sys/errno.h>//TEST
 #include <string.h>
 #include <unistd.h>
+#include <signal.h>
 
 #include <token_stream.h>
 #include <string_utils.h>//TEST
@@ -212,19 +213,6 @@ void	paused(void)//TEST
 	printf("Press enter...");
 	fgets(c, 2, stdin);
 }
-
-/*__attribute__((noreturn))
-static void fatal(t_cmd_assembler *asmr, t_token_stream *ts)
-{
-	//char	*msg;
-
-	printf("FATAL\n");//TEST
-	//msg = strerror(errno);
-	//write(2, msg, mstrlen(msg));
-	cmd_assembler_free(asmr);
-	ts_free(ts);
-	exit(errno);
-}*/
 
 static int	init_asmr_ts_envs(t_cmd_assembler **asmr, t_token_stream **ts,
 		t_vvector **envs, char **envp)
@@ -248,31 +236,62 @@ static int	init_asmr_ts_envs(t_cmd_assembler **asmr, t_token_stream **ts,
 	return (0);
 }
 
+__attribute__((noreturn))
+void	msh_exit(void)
+{
+	if (error(-2, 0, 0) == -1)
+		exit(error(0, 0, 1));
+	else
+		write(1, "\e[D\e[Dexit\n", 11);
+	exit(0);
+}
+
+static void	free_asmr_ts_envs(t_cmd_assembler *asmr, t_token_stream *ts,
+		t_vvector *envs)
+{
+	ts_free(ts);
+	vvector_free(envs);
+	cmd_assembler_free(asmr);
+}
+
+__attribute__((noreturn))
+static void	fatal(t_cmd_assembler *asmr, t_token_stream *ts,
+		t_vvector *envs)
+{
+	free_asmr_ts_envs(asmr, ts, envs);
+	exit(error(0, 0, 1));
+}
+
 static t_command_list	*parser(t_cmd_assembler *asmr, t_token_stream *ts,
 		t_vvector *envs)
 {
-	if (ts_read(ts) == -1)
+	t_command_list	*command_list;
+	int				read_stat;
+
+	command_list = 0;
+	while (!command_list)
 	{
-		printf("\e[D\e[DUSER EXIT\n");//TEST
-		ts_free(ts);//TEST
-		vvector_free(envs);
-		cmd_assembler_free(asmr);//TEST
-		paused();//TEST
-		exit(0);//TEST
+		read_stat = ts_read(ts);
+		while (!read_stat && !*ts->line_read)
+			read_stat = ts_read(ts);
+		if (read_stat == -1)
+		{
+			free_asmr_ts_envs(asmr, ts, envs);
+			msh_exit();
+		}
+		command_list = parse_line_read(asmr, ts, envs);
+		if (!command_list)
+		{
+			if (error(-2, 0, 0) == -1)
+				fatal(asmr, ts, envs);
+			else
+				error(0, 0, 1);
+		}
 	}
-	if (!*ts->line_read)
-	{
-		printf("EMPTY LINE\n");//TEST
-		ts_free(ts);//TEST
-		vvector_free(envs);
-		cmd_assembler_free(asmr);//TEST
-		paused();//TEST
-		exit(0);//TEST
-	}
-	return (parse_line_read(asmr, ts, envs));
+	return (command_list);
 }
 
-void print_command_list(t_command_list *command_list)
+void print_command_list(t_command_list *command_list)//TEST
 {
 	printf(" P  C\n");
 	for (int i = 0; i < command_list->size; ++i)//TEST
@@ -317,16 +336,11 @@ int	main(int argc, char *argv[], char *envp[])
 	(void)argv;
 	if (init_asmr_ts_envs(&asmr, &ts, &envs, envp) == -1)
 		return (error(0, 0, 1));
-	command_list = parser(asmr, ts, envs);
-	if (!command_list)
-		error(0, 0, 1);
-		//fatal(asmr, ts);
-	else
-		print_command_list(command_list);
-	ts_free(ts);//TEST
-	vvector_free(envs);
-	cmd_assembler_free(asmr);//TEST
-	command_list_free(command_list);//TEST
-	paused();//TEST
+	while (1)
+	{
+		command_list = parser(asmr, ts, envs);
+		print_command_list(command_list);//TEST
+		command_list_free(command_list);
+	}
 	return (0);
 }
