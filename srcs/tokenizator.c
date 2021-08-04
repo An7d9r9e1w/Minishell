@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 10:03:42 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/03 18:24:15 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/04 15:16:52 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <token.h>
 #include <string_utils.h>
 
-t_token	*get_word(char **line_read);
+t_token	*get_word(char **line_read, t_vvector *envs);
 
 static t_token	*get_operator(char **line_read, char op, char dop)
 {
@@ -38,7 +38,7 @@ static t_token	*get_operator(char **line_read, char op, char dop)
 	return (token);
 }
 
-t_token	*get_token(char **line_read)
+t_token	*get_token(char **line_read, t_vvector *envs)
 {
 	char	ch;
 
@@ -55,6 +55,6 @@ t_token	*get_token(char **line_read)
 	if (ch == '|')
 		return (get_operator(line_read, PIPE, OR));
 	(*line_read)--;
-	return (get_word(line_read));
+	return (get_word(line_read, envs));
 //WILDCARD
 }

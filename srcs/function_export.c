@@ -6,11 +6,12 @@
 /*   By: ejina <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 11:55:24 by ejina             #+#    #+#             */
-/*   Updated: 2021/08/04 11:55:33 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/04 15:47:44 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <function_export.h>
+#include <environment.h>
 
 static int validate_env(const char *str)
 {
@@ -77,7 +78,7 @@ int msh_export(char **args, t_vvector *env)
 		{
 			need_str = get_str(args[1]);
 			str = mstrdup(args[1]);
-			index = vvector_get_index_n(env, need_str, mstrlen(need_str), ft_strncmp);
+			index = get_environment_index(env, need_str);
 			if (index != -1)
 				vvector_erase(env, index, free);
 			vvector_put(env, str);

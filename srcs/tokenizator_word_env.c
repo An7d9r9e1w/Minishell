@@ -6,22 +6,16 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 10:04:01 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/04 10:10:57 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/04 15:26:01 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include <stdlib.h>
 
 #include <token.h>
 #include <char_checkers.h>
 #include <string_utils.h>
 #include <cvector.h>
 #include <error.h>
-
-static char	*get_env_value(char *env)//TEST
-{
-	return (mstrcat(mstrcat(mstrdup("\"VALUE_OF_"), env, mstrlen(env)), "\"", 1));
-}
+#include <environment.h>
 
 static int	error_env(t_cvector *cv)
 {
@@ -29,7 +23,8 @@ static int	error_env(t_cvector *cv)
 	return (-1);
 }
 
-int	get_environment(char **line_read, t_cvector *cv, int dquoted)//TEST
+int	get_environment(char **line_read, t_cvector *cv,
+		t_vvector *envs, int dquoted)
 {
 	t_cvector	*cv_env;
 	char		*ch;
@@ -48,10 +43,7 @@ int	get_environment(char **line_read, t_cvector *cv, int dquoted)//TEST
 		if (cvector_write(cv_env, ch++, 1) == -1)
 			return (error_env(cv_env));
 	*line_read = ch;
-	ch = get_env_value(cv_env->arr);//TEST
+	ch = get_environment_value(envs, cv_env->arr);
 	cvector_free(cv_env);
-	int	test = cvector_write(cv, ch, mstrlen(ch));//TEST
-	free(ch);//TEST
-	return (test);//TEST
-	//return (cvector_write(cv, ch, mstrlen(ch)));
+	return (cvector_write(cv, ch, mstrlen(ch)));
 }

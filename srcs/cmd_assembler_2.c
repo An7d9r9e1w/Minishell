@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 14:05:04 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/03 14:22:37 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/04 15:32:11 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ static int	cmd_assembler_pipeline_make(t_cmd_assembler *asmr)
 				sizeof(t_command), &pipe->size);
 		if (!pipe->commands || vvector_clear(asmr->commands))
 			return (-1);
-//	logic_operator;
 	}
 	return (0);
 }

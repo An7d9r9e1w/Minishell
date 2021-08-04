@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 10:02:34 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/03 18:18:54 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/04 15:10:36 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define TOKEN_STREAM_H
 
 # include <token.h>
+# include <vvector.h>
 
 typedef struct s_token_stream
 {
@@ -26,7 +27,7 @@ typedef struct s_token_stream
 
 t_token_stream	*ts_create(char *prompt);
 int				ts_read(t_token_stream *ts);
-t_token			*ts_get_token(t_token_stream *ts);
+t_token			*ts_get_token(t_token_stream *ts, t_vvector *envs);
 int				ts_putback(t_token_stream *ts, t_token *token);
 void			ts_free(t_token_stream *ts);
 

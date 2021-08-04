@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 10:03:48 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/04 10:03:55 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/04 15:26:31 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@
 
 #define BUFFERSIZE 1024
 
-int	get_environment(char **line_read, t_cvector *cv, int dquoted);//TEST
+int	get_environment(char **line_read, t_cvector *cv,
+		t_vvector *envs, int dquoted);
 
 static int	get_simple_word(char **line_read, t_cvector *cv)
 {
@@ -72,7 +73,7 @@ static int	get_quoted_word(char **line_read, t_cvector *cv)
 	return (-(len && cvector_write(cv, buf, len) == -1));
 }
 
-static int	get_dquoted_word(char **line_read, t_cvector *cv)
+static int	get_dquoted_word(char **line_read, t_cvector *cv, t_vvector *envs)
 {
 	char	*ch;
 
@@ -82,7 +83,7 @@ static int	get_dquoted_word(char **line_read, t_cvector *cv)
 		if (*ch == '$')
 		{
 			ch++;
-			if (get_environment(&ch, cv, 1))
+			if (get_environment(&ch, cv, envs, 1))
 				return (-1);
 		}
 		else if (cvector_write(cv, (char *)ch++, 1) == -1)
@@ -94,21 +95,21 @@ static int	get_dquoted_word(char **line_read, t_cvector *cv)
 	return (0);
 }
 
-static int	get_sequence(char **line_read, t_cvector *cv)
+static int	get_sequence(char **line_read, t_cvector *cv, t_vvector *envs)
 {
 	const char	ch = *(*line_read)++;
 
 	if (ch == '$')
-		return (get_environment(line_read, cv, 0));
+		return (get_environment(line_read, cv, envs, 0));
 	if (ch == '"')
-		return (get_dquoted_word(line_read, cv));
+		return (get_dquoted_word(line_read, cv, envs));
 	if (ch == '\'')
 		return (get_quoted_word(line_read, cv));
 	(*line_read)--;
 	return (get_simple_word(line_read, cv));
 }
 
-t_token	*get_word(char **line_read)
+t_token	*get_word(char **line_read, t_vvector *envs)
 {
 	t_cvector	*cv;
 	t_token		*token;
@@ -117,9 +118,9 @@ t_token	*get_word(char **line_read)
 	cv = cvector_create();
 	if (!cv)
 		return (0);
-	seq_stat = get_sequence(line_read, cv);
+	seq_stat = get_sequence(line_read, cv, envs);
 	while (**line_read && !is_space(**line_read) && !seq_stat)
-		seq_stat = get_sequence(line_read, cv);
+		seq_stat = get_sequence(line_read, cv, envs);
 	if (seq_stat != -1)
 		token = token_create(mstrdup(cv->arr), WORD);
 	else

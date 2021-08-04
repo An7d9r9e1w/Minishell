@@ -6,11 +6,12 @@
 /*   By: ejina <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 11:56:06 by ejina             #+#    #+#             */
-/*   Updated: 2021/08/04 11:56:20 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/04 15:48:25 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <function_unset.h>
+#include <environment.h>
 
 static int validate_env(const char *str)
 {
@@ -54,7 +55,7 @@ int msh_unset(char **args, t_vvector *env)
 	if (validate_env(args[1]))
 	{
 		need_str = get_str(args[1]);
-		index = vvector_get_index_n(env, need_str, mstrlen(need_str), ft_strncmp);
+		index = get_environment_index(env, need_str);
 		if (index != -1)
 			vvector_erase(env, index, free);
 	}

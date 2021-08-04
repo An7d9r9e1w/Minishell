@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/01 09:13:57 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/03 14:24:54 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/04 15:48:38 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,6 @@
 
 #include <vvector.h>
 #include <error.h>
-
-int	vvector_get_index_n(t_vvector *env, void *to_find, int n,
-						 int	(*compare)(const void *, const void *, int n))
-{
-	unsigned int	size;
-	int index;
-
-	size = 0;
-	index = -1;
-	while (size < env->size)
-	{
-		if (compare(env->arr[size], to_find, n) == 0)
-		{
-			index = size;
-			return (index);
-		}
-		size++;
-	}
-	return (index);
-}
 
 int	vvector_get_index(t_vvector *vv, void *to_find,
 		int	(*compare)(const void *, const void *))

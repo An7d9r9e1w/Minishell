@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 10:03:07 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/04 09:55:15 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/04 15:15:23 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,13 @@
 #include <parser.h>
 #include <error.h>
 
-static int	get_redirect(t_cmd_assembler *asmr, t_token_stream *ts, t_token *t)
+static int	get_redirect(t_cmd_assembler *asmr, t_token_stream *ts,
+		t_vvector *envs, t_token *t)
 {
 	t_token	*token;
 
 	free(t->value);
-	token = ts_get_token(ts);
+	token = ts_get_token(ts, envs);
 	if (!token)
 		return (error(EEND, 0, 0));
 	if (token->kind != WORD)
@@ -50,20 +51,21 @@ static int	check_command_line_first_token(t_token *token)
 	return (0);
 }
 
-static int	get_command_line(t_cmd_assembler *asmr, t_token_stream *ts)
+static int	get_command_line(t_cmd_assembler *asmr,
+		t_token_stream *ts, t_vvector *envs)
 {
 	t_token	*token;
 	int		stat;
 
 	if (cmd_assembler_cmd_new(asmr))
 		return (-1);
-	token = ts_get_token(ts);
+	token = ts_get_token(ts, envs);
 	if (check_command_line_first_token(token) == -1)
 		return (-1);
 	while (token)
 	{
 		if (token->kind >= GREAT && token->kind <= DLESS)
-			stat = get_redirect(asmr, ts, token);
+			stat = get_redirect(asmr, ts, envs, token);
 		else if (token->kind == WORD)
 			stat = cmd_assembler_cmd_edit(asmr, token);
 		else if (token->kind == ERROR)
@@ -73,55 +75,57 @@ static int	get_command_line(t_cmd_assembler *asmr, t_token_stream *ts)
 		free(token);
 		if (stat)
 			return (-1);
-		token = ts_get_token(ts);
+		token = ts_get_token(ts, envs);
 	}
 	return (error(-2, 0, 0));
 }
 
-static int	get_pipe_line(t_cmd_assembler *asmr, t_token_stream *ts)
+static int	get_pipe_line(t_cmd_assembler *asmr,
+		t_token_stream *ts, t_vvector *envs)
 {
 	t_token	*token;
 	int		stat;
 
-	if (cmd_assembler_pipeline_new(asmr) || get_command_line(asmr, ts))
+	if (cmd_assembler_pipeline_new(asmr) || get_command_line(asmr, ts, envs))
 		return (-1);
-	token = ts_get_token(ts);
+	token = ts_get_token(ts, envs);
 	while (token)
 	{
 		if (token->kind == PIPE)
-			stat = get_command_line(asmr, ts);
+			stat = get_command_line(asmr, ts, envs);
 		else
 			return (ts_putback(ts, token));
 		token_free(token);
 		if (stat)
 			return (-1);
-		token = ts_get_token(ts);
+		token = ts_get_token(ts, envs);
 	}
 	return (error(-2, 0, 0));
 }
 
-t_command_list	*parse_line_read(t_cmd_assembler *asmr, t_token_stream *ts)
+t_command_list	*parse_line_read(t_cmd_assembler *asmr,
+		t_token_stream *ts, t_vvector *envs)
 {
 	t_token	*token;
 	int		stat;
 
-	if (get_pipe_line(asmr, ts))
+	if (get_pipe_line(asmr, ts, envs))
 		return (0);
-	token = ts_get_token(ts);
+	token = ts_get_token(ts, envs);
 	while (token)
 	{
 		if (token->kind == AND || token->kind == OR)
 		{
 			((t_pipe_line *)asmr->pipes->arr[asmr->pipes->size - 1])
 				->logic_operator = (token->kind == AND);
-			stat = get_pipe_line(asmr, ts);
+			stat = get_pipe_line(asmr, ts, envs);
 		}
 		else
 			break ;
 		token_free(token);
 		if (stat)
 			return (0);
-		token = ts_get_token(ts);
+		token = ts_get_token(ts, envs);
 	}
 	if (error(-2, 0, 0))
 		return (0);

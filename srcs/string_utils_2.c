@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 10:03:20 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/01 09:04:04 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/04 14:45:02 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,18 @@ int	mstrcmp(const char *s1, const char *s2)
 int	mstrcmpv(const void *v1, const void *v2)
 {
 	return (mstrcmp(*(const char **)v1, *(const char **)v2));
+}
+
+int	mstrncmp(const char *s1, const char *s2, unsigned int n)
+{
+	if (!s1 || !s2)
+		return ((int)(s1 - s2));
+	while (--n && *s1 && *s1 == *s2)
+	{
+		s1++;
+		s2++;
+	}
+	return (*s1 - *s2);
 }
 
 int	envcmpv(const void *s1, const void *s2)

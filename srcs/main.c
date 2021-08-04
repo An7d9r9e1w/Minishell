@@ -203,6 +203,7 @@ int main(int argc, char **argv, char **env)
 #include <command_list.h>
 #include <error.h>
 #include <parser.h>
+#include <environment.h>
 
 void	paused(void)//TEST
 {
@@ -225,26 +226,36 @@ static void fatal(t_cmd_assembler *asmr, t_token_stream *ts)
 	exit(errno);
 }*/
 
-static int	init_asmr_ts(t_cmd_assembler **asmr, t_token_stream **ts)
+static int	init_asmr_ts_envs(t_cmd_assembler **asmr, t_token_stream **ts,
+		t_vvector **envs, char **envp)
 {
 	*ts = ts_create("msh-1.0$ ");
 	if (!*ts)
 		return (error(-1, 0, 0));
+	*envs = get_environments(envp);
+	if (!*envs)
+	{
+		ts_free(*ts);
+		return (error(-1, 0, 0));
+	}
 	*asmr = cmd_assembler_create();
 	if (!*asmr)
 	{
 		ts_free(*ts);
+		vvector_free(*envs);
 		return (error(-1, 0, 0));
 	}
 	return (0);
 }
 
-static t_command_list	*parser(t_cmd_assembler *asmr, t_token_stream *ts)
+static t_command_list	*parser(t_cmd_assembler *asmr, t_token_stream *ts,
+		t_vvector *envs)
 {
 	if (ts_read(ts) == -1)
 	{
 		printf("\e[D\e[DUSER EXIT\n");//TEST
 		ts_free(ts);//TEST
+		vvector_free(envs);
 		cmd_assembler_free(asmr);//TEST
 		paused();//TEST
 		exit(0);//TEST
@@ -253,11 +264,12 @@ static t_command_list	*parser(t_cmd_assembler *asmr, t_token_stream *ts)
 	{
 		printf("EMPTY LINE\n");//TEST
 		ts_free(ts);//TEST
+		vvector_free(envs);
 		cmd_assembler_free(asmr);//TEST
 		paused();//TEST
 		exit(0);//TEST
 	}
-	return (parse_line_read(asmr, ts));
+	return (parse_line_read(asmr, ts, envs));
 }
 
 void print_command_list(t_command_list *command_list)
@@ -294,24 +306,27 @@ void print_command_list(t_command_list *command_list)
 	}
 }
 
-int	main(void)//int argc, char *argv[], char *envp[])
+int	main(int argc, char *argv[], char *envp[])
 {
 	t_cmd_assembler	*asmr;
 	t_token_stream	*ts;
 	t_command_list	*command_list;
+	t_vvector		*envs;
 
-	if (init_asmr_ts(&asmr, &ts) == -1)
+	(void)argc;
+	(void)argv;
+	if (init_asmr_ts_envs(&asmr, &ts, &envs, envp) == -1)
 		return (error(0, 0, 1));
-
-	command_list = parser(asmr, ts);
+	command_list = parser(asmr, ts, envs);
 	if (!command_list)
 		error(0, 0, 1);
 		//fatal(asmr, ts);
 	else
 		print_command_list(command_list);
 	ts_free(ts);//TEST
+	vvector_free(envs);
 	cmd_assembler_free(asmr);//TEST
-	command_list_free(command_list);//TEST*/
+	command_list_free(command_list);//TEST
 	paused();//TEST
 	return (0);
 }

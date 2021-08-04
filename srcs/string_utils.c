@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 10:03:14 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/03 18:23:49 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/04 15:33:29 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*mstrdup(const char *str)
 
 	dup = malloc(mstrlen(str) + 1);
 	if (!dup)
-		return (0);//(error_p(-1));
+		return (error_p(-1));
 	p = dup;
 	if (str)
 		while (*str)
@@ -86,7 +86,7 @@ char	*mstrcat(char *dst, const char *src, unsigned int srclen)
 		dstlen = 0;
 	str = malloc(sizeof(char) * (dstlen + srclen + 1));
 	if (!str)
-		return (0); //(error_p(-1));
+		return (error_p(-1));
 	str_cur = str;
 	if (dst)
 		while (*dst)

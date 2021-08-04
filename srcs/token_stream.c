@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 10:03:36 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/01 10:33:01 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/04 15:15:54 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <token_stream.h>
 #include <string_utils.h>
 #include <error.h>
+#include <vvector.h>
 
 t_token_stream	*ts_create(char *prompt)
 {
@@ -66,12 +67,12 @@ int	ts_putback(t_token_stream *ts, t_token *token)
 	return (0);
 }
 
-t_token	*ts_get_token(t_token_stream *ts)
+t_token	*ts_get_token(t_token_stream *ts, t_vvector *envs)
 {
 	if (ts->full)
 	{
 		ts->full = 0;
 		return (ts->buffer);
 	}
-	return (get_token(&ts->line_cur));
+	return (get_token(&ts->line_cur, envs));
 }
