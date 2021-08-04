@@ -1,10 +1,11 @@
-/*<<<<<<< HEAD
-#include "../headers/main.h"
+/*#include "../headers/main.h"
+=======
+#include "../incs/main.h"
+>>>>>>> origin/develop
 #include <stdio.h>
-#include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
-int ft_strlen(const char *str);
+
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*p;
@@ -129,12 +130,11 @@ int msh_exit(char **args)
 	return (0);
 }
 
-//// Для cd сделать переключение на HOME,чтобы в env менялись значения
 int main(int argc, char **argv, char **env)
 {
-	t_list *list_env;
+	t_vvector *my_env;
 	char str[100];
-	list_env = get_env(env);
+	my_env = get_env(env);
 	char **arg;
 	(void)argc;
 	(void)argv;
@@ -144,7 +144,7 @@ int main(int argc, char **argv, char **env)
 		arg = ft_split(str, ' ');
 		if (!ft_strcmp(arg[0], "cd"))
 		{
-			if (!msh_cd(arg, list_env))
+			if (!msh_cd(arg, my_env))
 				return (1);
 		}
 		else if (!ft_strcmp(arg[0], "echo"))
@@ -154,12 +154,12 @@ int main(int argc, char **argv, char **env)
 		}
 		else if (!ft_strcmp(arg[0], "env"))
 		{
-			if (!msh_env(arg, env))
+			if (!msh_env(arg, my_env))
 				return (1);
 		}
 		else if (!ft_strcmp(arg[0], "export"))
 		{
-			if (!msh_export(arg, env))
+			if (!msh_export(arg, my_env))
 				return (1);
 		}
 		else if (!ft_strcmp(arg[0], "pwd"))
@@ -169,7 +169,7 @@ int main(int argc, char **argv, char **env)
 		}
 		else if (!ft_strcmp(arg[0], "unset"))
 		{
-			if (!msh_unset(arg, env))
+			if (!msh_unset(arg, my_env))
 				return (1);
 		}
 		else if (!ft_strcmp(arg[0], "exit"))
@@ -182,6 +182,7 @@ int main(int argc, char **argv, char **env)
 	}
 	return 0;
 }
+<<<<<<< HEAD
 =======*/
 /* ************************************************************************** */
 /*                                                                            */
@@ -343,4 +344,3 @@ int	main(void)//int argc, char *argv[], char *envp[])
 	paused();//TEST
 	return (0);
 }
->>>>>>> error_handing

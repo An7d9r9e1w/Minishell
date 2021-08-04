@@ -1,10 +1,11 @@
-#include "../headers/function_cd.h"
-#include "../headers/parser_env.h"
-static int update_oldpwd(t_list *list_env)
+#include "../incs/function_cd.h"
+#include "../incs/vvector.h"
+
+static int update_oldpwd(t_vvector *my_env)
 {
 	char str[BUFSIZE];
 	char *oldpwd;
-	int i;
+	unsigned int i;
 
 	if (!getcwd(str, BUFSIZE))
 		return (0);
@@ -12,110 +13,133 @@ static int update_oldpwd(t_list *list_env)
 	if (!oldpwd)
 		return (0);
 	i = 0;
-	while (env[i])
+	while (i < my_env->size)
 	{
-		if (!ft_strncmp(env[i], "OLDPWD=", 7))
+		if (!ft_strncmp(my_env->arr[i], "OLDPWD=", 7))
 		{
-//			free(env[i]);
-			env[i] = NULL;
-			env[i] = ft_strdup(oldpwd);
-			if (!env[i])
-			{
-				free(oldpwd);
-				oldpwd = NULL;
-				return (0);
-			}
+			vvector_erase(my_env, i);
+			vvector_put(my_env, oldpwd);
+			return (1);
 		}
 		i++;
 	}
 	free(oldpwd);
 	oldpwd = NULL;
-	return (1);
+	return (0);
 }
+static int update_pwd(t_vvector *my_env)
+{
+	char str[BUFSIZE];
+	char *pwd;
+	unsigned int i;
 
-static char *get_path(t_list *list_env, const char *name, int len)
+	if (!getcwd(str, BUFSIZE))
+		return (0);
+	pwd = ft_strjoin("PWD=", str);
+	if (!pwd)
+		return (0);
+	i = 0;
+	while (i < my_env->size)
+	{
+		if (!ft_strncmp(my_env->arr[i], "PWD=", 4))
+		{
+			vvector_erase(my_env, i);
+			vvector_put(my_env, pwd);
+			return (1);
+		}
+		i++;
+	}
+	free(pwd);
+	pwd = NULL;
+	return (0);
+}
+static char *get_path(t_vvector *my_env, const char *name, int len)
 {
 	char *path;
 	int i;
 	int j;
+	unsigned int size;
 
-	while (*env)
+	size = 0;
+	while (size < my_env->size)
 	{
-		if (!ft_strncmp(*env, name, len))
+		if (!ft_strncmp(my_env->arr[size], name, len))
 		{
-			path = malloc(sizeof(char) * (ft_strlen(*env) - len + 1));
+			path = malloc(sizeof(char) * (ft_strlen(my_env->arr[size]) - len + 1));
 			if (!path)
 				return (path);
-			i = 0;
+			i = -1;
 			j = 0;
-			while ((*env)[i])
+			while (((char **)my_env->arr)[size][++i])
 			{
 				if (i >= len)
-				{
-					path[j] = (*env)[i];
-					j++;
-				}
-				i++;
+					path[j++] = ((char **) my_env->arr)[size][i];
 			}
 			path[j] = 0;
 			return (path);
 		}
-		env++;
+		size++;
 	}
 	return (NULL);
 }
 
-static void change_path(int n, t_list *list_env)
+static char	*help_change(t_vvector *my_env, const char *str)
+{
+	char *need_path;
+
+	need_path = get_path(my_env, str, ft_strlen(str));
+	if (!need_path)
+	{
+		write(2, "msh: cd: ", 9);
+		write(2, str, ft_strlen(str));
+		write(2, " not set\n", 9);
+		return NULL;
+	}
+	update_oldpwd(my_env);
+	return (need_path);
+}
+
+static void change_path(int n, t_vvector *my_env)
 {
 	char *need_path;
 
 	need_path = NULL;
 	if (n == 0)
-	{
-		need_path = get_path(env, "HOME=", 5);
-		if (!need_path)
-		{
-			write(2, "msh: cd: HOME not set\n", 22);
-			return ;
-		}
-		update_oldpwd(env);
-	}
+		need_path = help_change(my_env, "HOME=");
 	else if (n == 1)
-	{
-		need_path = get_path(env, "OLDPWD=", 7);
-		if (!need_path)
-		{
-			write(2, "msh: cd: OLDPWD not set\n", 24);
-			return ;
-		}
-		update_oldpwd(env);
-	}
+		need_path = help_change(my_env, "OLDPWD=");
+	if (!need_path)
+		return ;
 	if (chdir(need_path) != 0)
 	{
 		write(2, strerror(errno), ft_strlen(strerror(errno)));
 		write(2, "\n", 1);
 	}
+	else
+		update_pwd(my_env);
 	free (need_path);
 	need_path = NULL;
 }
 
-int	msh_cd(char **args, t_list *list_env)
+int	msh_cd(char **args, t_vvector *my_env)
 {
 	char *err;
 
 	if (args[1] == NULL)
-		change_path(0, env);
+		change_path(0, my_env);
 	else if (!ft_strcmp(args[1], "-"))
-		change_path(1, env);
+		change_path(1, my_env);
 	else
 	{
-		update_oldpwd(env);
+		update_oldpwd(my_env);
 		if (chdir(args[1]) != 0)
 		{
 			err = strerror(errno);
 			write(2, err, ft_strlen(err));
 			write(2, "\n", 1);
 		}
+		else
+			update_pwd(my_env);
 	}
 	return (1);
 }

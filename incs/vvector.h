@@ -16,13 +16,13 @@
 # ifndef VV_CAPACITY
 #  define VV_CAPACITY 16
 # endif	/*VV_CAPACITY*/
-
+#include <stdlib.h>
 typedef struct s_vvector
 {
 	void			**arr;
 	unsigned int	capacity;
 	unsigned int	size;
-}	t_vvector;
+}				t_vvector;
 
 /*
  *	Part 1
@@ -37,6 +37,8 @@ int			vvector_erase(t_vvector *vv,
  */
 int			vvector_get_index(t_vvector *vv, void *to_find,
 				int	(*compare)(const void *, const void *));
+int			vvector_get_index_n(t_vvector *vv, void *to_find, int n,
+						   int	(*compare)(const void *, const void *, int n));
 void		*vvector_find(t_vvector *vv, void *to_find,
 				int (*compare)(const void *, const void *));
 int			vvector_replace(t_vvector *vv, unsigned int index, void *data);
