@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/01 07:19:13 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/01 07:36:46 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/03 18:25:28 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	mqsort(void *base, size_t nel, size_t width,
 	if (--nel)
 	{
 		p = partition(base, nel, width, compar);
-		if (p == -1)
+		if (p == (size_t)(-1))
 			return ;
 		mqsort(base, p + 1, width, compar);
 		mqsort((void *)((unsigned char *)base + (p + 1) * width),

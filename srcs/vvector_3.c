@@ -1,43 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token.c                                            :+:      :+:    :+:   */
+/*   vvector_3.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/31 10:03:26 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/01 14:01:18 by nnamor           ###   ########.fr       */
+/*   Created: 2021/08/03 09:17:29 by nnamor            #+#    #+#             */
+/*   Updated: 2021/08/03 14:25:13 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
-#include <token.h>
+#include <vvector.h>
 #include <error.h>
 
-t_token	*token_create(char *value, t_kind kind)
+void	*vvector_copy(t_vvector *vv)
 {
-	t_token	*token;
+	void			**arr;
+	unsigned int	i;
 
-	if (!value)
+	if (!vv->size)
 		return (0);
-	token = malloc(sizeof(t_token));
-	if (!token)
-	{
-		free(value);
+	arr = malloc(sizeof(void *) * (vv->size + 1));
+	if (!arr)
 		return (error_p(-1));
-	}
-	token->value = value;
-	token->kind = kind;
-	return (token);
+	i = -1;
+	while (++i < vv->size)
+		*arr++ = vv->arr[i];
+	*arr = 0;
+	vv->size = 0;
+	return (arr - i);
 }
 
-void	token_free(t_token *token)
+int	vvector_clear(t_vvector *vv)
 {
-	if (token)
-	{
-		if (token->value)
-			free(token->value);
-		free(token);
-	}
+	if (!vv->size)
+		return (-1);
+	while (vv->size--)
+		free(vv->arr[vv->size]);
+	vv->size = 0;
+	return (0);
 }

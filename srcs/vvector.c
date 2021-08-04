@@ -6,13 +6,14 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 10:04:08 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/01 09:33:08 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/03 14:24:21 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
 #include <vvector.h>
+#include <error.h>
 
 t_vvector	*vvector_create(void)
 {
@@ -20,13 +21,13 @@ t_vvector	*vvector_create(void)
 
 	vv = malloc(sizeof(t_vvector));
 	if (!vv)
-		return (0);
+		return (error_p(-1));
 	vv->capacity = VV_CAPACITY;
 	vv->arr = malloc(sizeof(void *) * vv->capacity);
 	if (!vv->arr)
 	{
 		free(vv);
-		return (0);
+		return (error_p(-1));
 	}
 	vv->size = 0;
 	return (vv);
@@ -54,7 +55,7 @@ static int	vvector_realloc(t_vvector *vv, unsigned int new_size)
 
 	arr = malloc(sizeof(void *) * new_size);
 	if (!arr)
-		return (-1);
+		return (error(-1, 0, 0));
 	arr_cur = arr;
 	i = vv->size;
 	while (i--)
@@ -76,11 +77,11 @@ int	vvector_put(t_vvector *vv, void *data)
 	return (0);
 }
 
-int	vvector_erase(t_vvector *vv, unsigned int index)
+int	vvector_erase(t_vvector *vv, unsigned int index, void (*free_s)(void *))
 {
-	if (index >= vv->size)
+	if (index >= vv->size || !free_s)
 		return (-1);
-	free(vv->arr[index]);
+	free_s(vv->arr[index]);
 	if (--vv->size)
 		vv->arr[index] = vv->arr[vv->size];
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 10:03:36 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/01 07:02:41 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/01 10:33:01 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	ts_free(t_token_stream *ts)
 int	ts_putback(t_token_stream *ts, t_token *token)
 {
 	if (ts->full)
-		return (error(EFULLBUF));
+		return (error(EFULLBUF, 0, 0));
 	ts->buffer = token;
 	ts->full = 1;
 	return (0);

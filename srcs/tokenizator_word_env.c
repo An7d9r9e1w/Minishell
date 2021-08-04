@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 10:04:01 by nnamor            #+#    #+#             */
-/*   Updated: 2021/07/31 16:24:14 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/04 10:10:57 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,16 @@ static int	error_env(t_cvector *cv)
 	return (-1);
 }
 
-int	get_environment(char **line_read, t_cvector *cv)//TEST
+int	get_environment(char **line_read, t_cvector *cv, int dquoted)//TEST
 {
 	t_cvector	*cv_env;
 	char		*ch;
 
 	ch = *line_read;
+	if (!*ch || is_space(*ch))
+		return (cvector_write(cv, "$", 1));
+	if (*ch == '"')
+		return (-(dquoted && cvector_write(cv, "$", 1) == -1));
 	if (*ch >= '0' && *ch <= '9')
 		return (0 & (long)(*line_read)++);
 	cv_env = cvector_create();

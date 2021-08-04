@@ -9,7 +9,7 @@ OBJS := $(addprefix $(OBJDIR)/,$(notdir $(SRCS:%.c=%.o)))
 NAME := test
 
 CC := gcc
-CFLAGS := -Wall -Wextra -Werror -I $(INCDIR)
+CFLAGS := -Wall -Wextra -Werror -g -I $(INCDIR)
 DEPFLAGS = -MT $@ -MMD -MF $(DEPDIR)/$*.tmpd
 COMPILE.c = $(CC) $(CFLAGS) $(DEPFLAGS) -c -o
 LINK.c = $(CC) $(CFLAGS) -lreadline -o

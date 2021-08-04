@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 10:03:42 by nnamor            #+#    #+#             */
-/*   Updated: 2021/07/31 18:20:04 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/03 18:24:15 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ static t_token	*get_operator(char **line_read, char op, char dop)
 
 	if (*(*line_read - 1) == **line_read)
 	{
+		value = mstrcat(0, *line_read - 1, 2);
 		(*line_read)++;
 		op = dop;
-		value = mstrcat(0, *line_read - 1, 2);
 	}
 	else
 		value = mstrcat(0, *line_read - 1, 1);

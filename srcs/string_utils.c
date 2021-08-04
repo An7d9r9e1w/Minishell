@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 10:03:14 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/01 07:03:48 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/03 18:23:49 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*mstrdup(const char *str)
 	return (dup);
 }
 
-int		mstrlcpy(char *dst, const char *src, int dstsize)
+int	mstrlcpy(char *dst, const char *src, int dstsize)
 {
 	int	srcsize;
 
@@ -78,7 +78,7 @@ char	*mstrcat(char *dst, const char *src, unsigned int srclen)
 	char			*str_cur;
 	unsigned int	dstlen;
 
-	if ((!src || !srclen) && dst)
+	if (!src || !srclen)
 		return (dst);
 	if (dst)
 		dstlen = mstrlen(dst);
@@ -92,7 +92,7 @@ char	*mstrcat(char *dst, const char *src, unsigned int srclen)
 		while (*dst)
 			*str_cur++ = *dst++;
 	dst -= str_cur - str;
-	while (*src)
+	while (srclen--)
 		*str_cur++ = *src++;
 	*str_cur = 0;
 	if (dst)
