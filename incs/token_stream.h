@@ -6,16 +6,14 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 10:02:34 by nnamor            #+#    #+#             */
-/*   Updated: 2021/07/31 16:19:27 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/03 18:18:54 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKEN_STREAM_H
 # define TOKEN_STREAM_H
 
-#include <token.h>
-
-# define EFULLBUF "Fatal: attempt to put a token back to full stream\n"
+# include <token.h>
 
 typedef struct s_token_stream
 {
