@@ -16,6 +16,6 @@
 # include <unistd.h>
 # include <stdio.h>
 
-int	ft_strcmp(const char *s1, const char *s2);
+int	mstrcmp(const char *s1, const char *s2);
 
 #endif	/*FUNCTION_ECHO_H*/

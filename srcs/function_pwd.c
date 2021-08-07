@@ -10,20 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <function_pwd.h>
+#include "../incs/function_pwd.h"
+#include "../incs/error.h"
 
-int msh_pwd(char **args)
+int	msh_pwd(char **args)
 {
-	char str[BUFSIZE];
-	char *err;
-	(void)(args);
+	char	str[BUFSIZE];
 
+	(void)(args);
 	if (getcwd(str, BUFSIZE) == NULL)
-	{
-		err = strerror(errno);
-		write(2, err, ft_strlen(err));
-		write(2, "\n", 1);
-	}
+		return (error(-1, 0, 0));
 	else
 		printf("%s\n", str);
 	return (1);

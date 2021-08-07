@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <function_echo.h>
+#include "../incs/function_echo.h"
 
-static void print_arg(char **args, int i)
+static void	print_arg(char **args, int i)
 {
 	while (args[i])
 	{
@@ -23,19 +23,19 @@ static void print_arg(char **args, int i)
 	}
 }
 
-int msh_echo(char **args)
+int	msh_echo(char **args)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(args[i])
+	while (args[i])
 		i++;
 	if (i == 1)
 		printf("\n");
 	else
 	{
 		i = 1;
-		if (!ft_strcmp(args[i], "-n"))
+		if (!mstrcmp(args[i], "-n"))
 		{
 			i++;
 			print_arg(args, i);

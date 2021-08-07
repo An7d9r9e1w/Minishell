@@ -20,6 +20,6 @@
 int		msh_env(char **args, t_vvector *env);
 char	*mstrdup(const char *str);
 int		mstrlen(const char *str);
-int		ft_strncmp(const void *s1, const void *s2, int n);
+int		mstrncmp(const void *s1, const void *s2, int n);
 
 #endif	/*FUNCTION_EXPORT_H*/

@@ -17,8 +17,8 @@
 # include <stdio.h>
 # include <vvector.h>
 
-int		ft_strncmp(const void *s1, const void *s2, int n);
-char	*ft_strdup(const char *s1);
+int		mstrncmp(const void *s1, const void *s2, int n);
+char	*mstrdup(const char *s1);
 char	*get_str(char *str);
 int		mstrlen(const char *str);
 
