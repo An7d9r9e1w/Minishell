@@ -9,10 +9,12 @@ OBJS := $(addprefix $(OBJDIR)/,$(notdir $(SRCS:%.c=%.o)))
 NAME := test
 
 CC := gcc
-CFLAGS := -Wall -Wextra -Werror -g -I $(INCDIR)
+LDFLAGS := -L/Users/nnamor/.brew/opt/readline/lib
+IFLAGS := -I/Users/nnamor/.brew/opt/readline/include -I $(INCDIR)
+CFLAGS := -Wall -Wextra -Werror -g $(IFLAGS)
 DEPFLAGS = -MT $@ -MMD -MF $(DEPDIR)/$*.tmpd
 COMPILE.c = $(CC) $(CFLAGS) $(DEPFLAGS) -c -o
-LINK.c = $(CC) $(CFLAGS) -lreadline -o
+LINK.c = $(CC) $(CFLAGS) -lreadline $(LDFLAGS) -o
 POSTCOMPILE = mv -f $(DEPDIR)/$*.tmpd $(DEPDIR)/$*.d && touch $@
 
 MKDIR = mkdir -p $@

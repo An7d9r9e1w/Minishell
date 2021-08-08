@@ -217,6 +217,7 @@ void	paused(void)//TEST
 static int	init_asmr_ts_envs(t_cmd_assembler **asmr, t_token_stream **ts,
 		t_vvector **envs, char **envp)
 {
+	signal(SIGINT, signal_handler);
 	*ts = ts_create("msh-1.0$ ");
 	if (!*ts)
 		return (error(-1, 0, 0));
@@ -242,7 +243,7 @@ void	msh_exit(void)
 	if (error(-2, 0, 0) == -1)
 		exit(error(0, 0, 1));
 	else
-		write(1, "\e[D\e[Dexit\n", 11);
+		printf("exit\n");
 	exit(0);
 }
 
