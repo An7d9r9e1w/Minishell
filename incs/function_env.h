@@ -17,6 +17,6 @@
 
 void	mqsort(void *base, size_t nel, size_t width,
 			int (*compar)(const void *, const void *));
-int		ft_strcmp(const void *s1, const void *s2);
+int		mstrcmp(const void *s1, const void *s2);
 
 #endif	/*FUNCTION_ENV_H*/

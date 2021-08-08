@@ -17,6 +17,7 @@
 # include <string.h>
 # include <errno.h>
 # include <stdlib.h>
+# include <vvector.h>
 
 # ifdef BUFSIZE
 #  undef BUFSIZE
@@ -24,11 +25,13 @@
 
 # define BUFSIZE 100
 
-int		ft_strlen(const char *str);
-int		ft_strcmp(const char *s1, const char *s2);
-int		ft_strncmp(const char *s1, const char *s2, int n);
-char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_strdup(const char *s1);
+int		mstrlen(const char *str);
+int		mstrcmp(const char *s1, const char *s2);
+int		mstrncmp(const char *s1, const char *s2, unsigned int n);
+char	*mstrjoin(char const *s1, char const *s2);
+char	*mstrdup(const char *str);
 int		msh_env(char **args, char **env);
+int		update_pwd(t_vvector *my_env);
+int		update_oldpwd(t_vvector *my_env);
 
 #endif	/*FUNCTION_CD_H*/

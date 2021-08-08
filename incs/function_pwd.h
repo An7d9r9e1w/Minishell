@@ -24,6 +24,6 @@
 
 # define BUFSIZE 100
 
-int	ft_strlen(const char *str);
+int	mstrlen(const char *str);
 
 #endif	/*FUNCTION_PWD_H*/
