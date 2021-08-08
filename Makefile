@@ -1,20 +1,22 @@
 SRCDIR := srcs
-INCDIR := incs
 OBJDIR := objs
 DEPDIR := $(OBJDIR)/.deps
+INCDIR := $(dir $(wildcard incs/**/))
 
-SRCS := $(wildcard $(SRCDIR)/*.c)
+SRCS := $(shell find $(SRCDIR) -name \*.c)
 OBJS := $(addprefix $(OBJDIR)/,$(notdir $(SRCS:%.c=%.o)))
+
+VPATH := $(dir $(SRCS))
 
 NAME := test
 
 CC := gcc
-LDFLAGS := -L/Users/nnamor/.brew/opt/readline/lib
-IFLAGS := -I/Users/nnamor/.brew/opt/readline/include -I $(INCDIR)
-CFLAGS := -Wall -Wextra -Werror -g $(IFLAGS)
+LDFLAGS := -lreadline -L/Users/nnamor/.brew/opt/readline/lib/
+IFLAGS := $(addprefix -I ,$(INCDIR)) -I/Users/nnamor/.brew/opt/readline/include/
+CFLAGS = -Wall -Wextra -Werror -g $(IFLAGS) -o $@
 DEPFLAGS = -MT $@ -MMD -MF $(DEPDIR)/$*.tmpd
-COMPILE.c = $(CC) $(CFLAGS) $(DEPFLAGS) -c -o
-LINK.c = $(CC) $(CFLAGS) -lreadline $(LDFLAGS) -o
+COMPILE.c = $(CC) $(CFLAGS) $(DEPFLAGS) -c
+LINK.c = $(CC) $(CFLAGS) $(LDFLAGS)
 POSTCOMPILE = mv -f $(DEPDIR)/$*.tmpd $(DEPDIR)/$*.d && touch $@
 
 MKDIR = mkdir -p $@
@@ -23,12 +25,12 @@ RM := rm -rf
 #-------------------------------------------------------------------------------#
 
 $(NAME): $(OBJS)
-	$(LINK.c) $@ $^
+	$(LINK.c) $^
 
 all: $(NAME)
 
-$(OBJDIR)/%.o : $(SRCDIR)/%.c $(DEPDIR)/%.d | $(DEPDIR)
-	$(COMPILE.c) $@ $<
+$(OBJDIR)/%.o : %.c $(DEPDIR)/%.d | $(DEPDIR)
+	$(COMPILE.c) $<
 	@$(POSTCOMPILE)
 
 $(DEPDIR):

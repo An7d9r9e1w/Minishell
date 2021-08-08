@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   function_env.c                                     :+:      :+:    :+:   */
+/*   function_pwd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ejina <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/04 11:54:02 by ejina             #+#    #+#             */
-/*   Updated: 2021/08/04 11:55:09 by nnamor           ###   ########.fr       */
+/*   Created: 2021/08/04 11:55:49 by ejina             #+#    #+#             */
+/*   Updated: 2021/08/08 10:26:16 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/function_env.h"
-#include "../incs/vvector.h"
+#include <function_pwd.h>
+#include <error.h>
 
-int	msh_env(char **args, t_vvector *env)
+int	msh_pwd(char **args)
 {
-	unsigned int	i;
+	char	str[BUFSIZE];
 
-	(void)args;
-	mqsort(env->arr, env->size, sizeof(void *), mstrcmp);
-	i = 0;
-	while (i < env->size)
-	{
-		printf("%s\n", (char *)env->arr[i]);
-		i++;
-	}
+	(void)(args);
+	if (getcwd(str, BUFSIZE) == NULL)
+		return (error(-1, 0, 0));
+	else
+		printf("%s\n", str);
 	return (1);
 }

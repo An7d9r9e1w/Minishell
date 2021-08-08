@@ -1,26 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   function_pwd.c                                     :+:      :+:    :+:   */
+/*   function_echo.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ejina <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/04 11:55:49 by ejina             #+#    #+#             */
-/*   Updated: 2021/08/04 11:55:59 by nnamor           ###   ########.fr       */
+/*   Created: 2021/08/04 11:53:30 by ejina             #+#    #+#             */
+/*   Updated: 2021/08/08 10:25:19 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/function_pwd.h"
-#include "../incs/error.h"
+#include <function_echo.h>
 
-int	msh_pwd(char **args)
+static void	print_arg(char **args, int i)
 {
-	char	str[BUFSIZE];
+	while (args[i])
+	{
+		printf("%s", args[i]);
+		if (args[i + 1])
+			printf(" ");
+		i++;
+	}
+}
 
-	(void)(args);
-	if (getcwd(str, BUFSIZE) == NULL)
-		return (error(-1, 0, 0));
+int	msh_echo(char **args)
+{
+	int	i;
+
+	i = 0;
+	while (args[i])
+		i++;
+	if (i == 1)
+		printf("\n");
 	else
-		printf("%s\n", str);
+	{
+		i = 1;
+		if (!mstrcmp(args[i], "-n"))
+		{
+			i++;
+			print_arg(args, i);
+		}
+		else
+		{
+			print_arg(args, i);
+			printf("\n");
+		}
+	}
 	return (1);
 }

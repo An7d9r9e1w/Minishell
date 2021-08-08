@@ -6,13 +6,13 @@
 /*   By: ejina <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 11:56:06 by ejina             #+#    #+#             */
-/*   Updated: 2021/08/04 15:48:25 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/08 10:26:12 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/function_unset.h"
-#include "../incs/environment.h"
-#include "../incs/error.h"
+#include <function_unset.h>
+#include <environment.h>
+#include <error.h>
 
 static int	validate_env(const char *str)
 {

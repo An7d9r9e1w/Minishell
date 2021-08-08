@@ -6,13 +6,14 @@
 /*   By: ejina  <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 11:05:25 by ejina             #+#    #+#             */
-/*   Updated: 2021/08/04 11:08:08 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/08 10:25:08 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "../incs/function_cd.h"
-#include "../incs/error.h"
+
+#include <function_cd.h>
+#include <error.h>
 
 int	update_oldpwd(t_vvector *my_env)
 {

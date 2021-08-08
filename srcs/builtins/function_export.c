@@ -6,13 +6,13 @@
 /*   By: ejina <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 11:55:24 by ejina             #+#    #+#             */
-/*   Updated: 2021/08/04 15:47:44 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/08 10:25:41 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/function_export.h"
-#include "../incs/environment.h"
-#include "../incs/error.h"
+#include <function_export.h>
+#include <environment.h>
+#include <error.h>
 
 static int	validate_env(const char *str)
 {

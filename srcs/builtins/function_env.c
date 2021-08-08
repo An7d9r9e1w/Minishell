@@ -1,50 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   function_echo.c                                    :+:      :+:    :+:   */
+/*   function_env.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ejina <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/04 11:53:30 by ejina             #+#    #+#             */
-/*   Updated: 2021/08/04 11:53:57 by nnamor           ###   ########.fr       */
+/*   Created: 2021/08/04 11:54:02 by ejina             #+#    #+#             */
+/*   Updated: 2021/08/08 10:25:29 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/function_echo.h"
+#include <function_env.h>
+#include <vvector.h>
 
-static void	print_arg(char **args, int i)
+int	msh_env(char **args, t_vvector *env)
 {
-	while (args[i])
-	{
-		printf("%s", args[i]);
-		if (args[i + 1])
-			printf(" ");
-		i++;
-	}
-}
+	unsigned int	i;
 
-int	msh_echo(char **args)
-{
-	int	i;
-
+	(void)args;
+	mqsort(env->arr, env->size, sizeof(void *), mstrcmp);
 	i = 0;
-	while (args[i])
-		i++;
-	if (i == 1)
-		printf("\n");
-	else
+	while (i < env->size)
 	{
-		i = 1;
-		if (!mstrcmp(args[i], "-n"))
-		{
-			i++;
-			print_arg(args, i);
-		}
-		else
-		{
-			print_arg(args, i);
-			printf("\n");
-		}
+		printf("%s\n", (char *)env->arr[i]);
+		i++;
 	}
 	return (1);
 }
