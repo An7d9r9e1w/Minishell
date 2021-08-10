@@ -225,6 +225,32 @@ void	paused(void)//TEST
 	fgets(c, 2, stdin);
 }
 
+static int	set_shell_level(t_vvector *envs)
+{
+	char	buf[24];
+	char	*p;
+	char	*level_str;
+	int		index;
+	int		level;
+
+	index = get_environment_index(envs, "SHLVL");
+	if (index == -1)
+		return (vvector_put(envs, mstrdup("SHLVL=1")));
+	level = matoi(get_environment_value(envs, "SHLVL")) + 1;
+	level_str = mitoa(level);
+	if (!level_str)
+		return (-1);
+	free(envs->arr[index]);
+	p = buf + mstrlcpy(buf, "SHLVL=", 6);
+	mstrlcpy(p, level_str, mstrlen(level_str));
+	free(level_str);
+	p = mstrdup(buf);
+	if (!p)
+		return (-1);
+	envs->arr[index] = p;
+	return (0);
+}
+
 static int	init_asmr_ts_envs(t_cmd_assembler **asmr, t_token_stream **ts,
 		t_vvector **envs, char **envp)
 {
@@ -233,7 +259,7 @@ static int	init_asmr_ts_envs(t_cmd_assembler **asmr, t_token_stream **ts,
 	if (!*ts)
 		return (error(-1, 0, 0));
 	*envs = get_environments(envp);
-	if (!*envs)
+	if (!*envs || set_shell_level(*envs) == -1)
 	{
 		ts_free(*ts);
 		return (error(-1, 0, 0));

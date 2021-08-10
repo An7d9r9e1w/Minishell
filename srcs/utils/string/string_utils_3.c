@@ -6,7 +6,7 @@
 /*   By: ejina <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 11:58:08 by ejina             #+#    #+#             */
-/*   Updated: 2021/08/10 14:19:19 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/10 15:01:25 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*mstrjoin(char const *s1, char const *s2)
 	return (p);
 }
 
-char	*matoi(char *s1)
+int	matoi(char *s1)
 {
 	int	num;
 	int	sign;
@@ -60,4 +60,27 @@ char	*matoi(char *s1)
 	if (sign)
 		num = -num;
 	return (num);
+}
+
+char	*mitoa(int n)
+{
+	char			buf[16];
+	char			*p;
+	unsigned int	un;
+
+	if (n < 0)
+		un = -n;
+	else
+		un = n;
+	p = buf + 15;
+	*p-- = '\0';
+	*p = '0';
+	while (un)
+	{
+		*p-- = un % 10 + '0';
+		un /= 10;
+	}
+	if (n < 0)
+		*p-- = '-';
+	return (mstrdup(p + (n != 0)));
 }

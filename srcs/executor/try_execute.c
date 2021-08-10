@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 11:56:46 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/10 12:00:42 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/10 13:10:26 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,8 @@ static void	exec_error(int err, char *msg)
 /*__attribute__ ((noreturn))*/
 void	try_exec(t_command *command, t_vvector *envs, int *fildes, int out)
 {
-	char	**args;
+	char	**args_cp;
+	char	**envs_cp;
 	int		len;
 
 	if (search_path(command, envs) == -1)
@@ -109,9 +110,14 @@ void	try_exec(t_command *command, t_vvector *envs, int *fildes, int out)
 	len = 0;
 	while (command->args[len])
 		len++;
-	args = convert_into_solid_arr(command->args, len);
-	if (!args)
+	args_cp = convert_into_solid_arr(command->args, len);
+	if (!args_cp)
 		exec_error(-1, 0);
-	execve(*args, args, NULL);
+	envs_cp = convert_into_solid_arr((char **)envs->arr, envs->size);
+	if (!envs_cp)
+		exec_error(-1, 0);
+	for (int i = 0; envs_cp[i]; ++i)//TEST
+		dprintf(2, "%s\n", envs_cp[i]);//TEST
+	execve(*args_cp, args_cp, NULL);
 	exec_error(-1, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 10:02:15 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/10 14:15:40 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/10 14:51:00 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ int		envcmpv(const void *s1, const void *s2);
  *	Part 3
  */
 char	*mstrjoin(char const *s1, char const *s2);
-char	*matoi(char *s1);
+int		matoi(char *s1);
+char	*mitoa(int n);
 #endif	/*STRING_UTILS_H*/
