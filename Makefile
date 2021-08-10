@@ -8,7 +8,7 @@ OBJS := $(addprefix $(OBJDIR)/,$(notdir $(SRCS:%.c=%.o)))
 
 VPATH := $(dir $(SRCS))
 
-NAME := test
+NAME := minishell
 
 CC := gcc
 LDFLAGS := -lreadline -L/Users/nnamor/.brew/opt/readline/lib/
@@ -46,6 +46,7 @@ clean:
 fclean: clean
 	$(RM) $(NAME)
 
-re: fclean all
+re: fclean
+	@$(MAKE)
 
 .PHONY: all clean fclean re

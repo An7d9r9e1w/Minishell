@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 11:56:46 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/10 13:10:26 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/10 17:33:31 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	try_open(char *path)
 	return (1);
 }
 
-static int	search_path(t_command *command, t_vvector *envs)
+int	search_path(t_command *command, t_vvector *envs)
 {
 	t_cvector	*cv;
 	char		*path_env;
@@ -102,9 +102,8 @@ void	try_exec(t_command *command, t_vvector *envs, int *fildes, int out)
 
 	if (search_path(command, envs) == -1)
 		exec_error(ENOCMD, *command->args);
-	if (set_flows(command, fildes, &out) == -1)
-		exec_error(-1, 0);
-	if (dup2(fildes[0], STDIN_FILENO) == -1
+	if (set_flows(command, fildes, &out) == -1
+		|| dup2(fildes[0], STDIN_FILENO) == -1
 		|| dup2(out, STDOUT_FILENO) == -1)
 		exec_error(-1, 0);
 	len = 0;
@@ -116,8 +115,6 @@ void	try_exec(t_command *command, t_vvector *envs, int *fildes, int out)
 	envs_cp = convert_into_solid_arr((char **)envs->arr, envs->size);
 	if (!envs_cp)
 		exec_error(-1, 0);
-	for (int i = 0; envs_cp[i]; ++i)//TEST
-		dprintf(2, "%s\n", envs_cp[i]);//TEST
-	execve(*args_cp, args_cp, NULL);
+	execve(*args_cp, args_cp, envs_cp);
 	exec_error(-1, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/07 17:14:21 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/10 12:39:18 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/10 17:08:18 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*ts_get_prompt(char *new_prompt)
 	return (prompt);
 }
 
-void	signal_handler(int sig)
+void	signal_handler_sub(int sig)
 {
 	extern int	rl_end;
 	int			i;
@@ -42,8 +42,14 @@ void	signal_handler(int sig)
 		printf("\e[K\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
-		rl_redisplay();
 	}
+}
+
+void	signal_handler(int sig)
+{
+	signal_handler_sub(sig);
+	if (sig == SIGINT)
+		rl_redisplay();
 }
 
 int	ts_read(t_token_stream *ts)
@@ -64,14 +70,4 @@ int	ts_putback(t_token_stream *ts, t_token *token)
 	ts->buffer = token;
 	ts->full = 1;
 	return (0);
-}
-
-t_token	*ts_get_token(t_token_stream *ts, t_vvector *envs)
-{
-	if (ts->full)
-	{
-		ts->full = 0;
-		return (ts->buffer);
-	}
-	return (get_token(&ts->line_cur, envs));
 }

@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 13:59:48 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/10 12:03:37 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/10 18:03:04 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,17 @@
 #include <stdio.h>//TEST
 #include <stdlib.h>
 #include <sys/wait.h>
+#include <signal.h>
 
+#include <token_stream.h>
 #include <executor.h>
 #include <error.h>
 
 /*__attribute__ ((noreturn))*/
 void	try_exec(t_command *command, t_vvector *envs, int *fildes, int out);
+int		check_for_builtin(t_pipe_line *pipe, t_vvector *envs);
+int		try_exec_builtin(t_command *command, t_vvector *envs,
+		int *fildes, int out);
 
 //TEST
 /*void print_command_list(t_command_list *command_list)//TEST
@@ -90,6 +95,9 @@ int	exec_pipe(t_pipe_line *pipe, t_vvector *envs)
 	pid_t	pid;
 	int		stat_loc;
 
+	stat_loc = check_for_builtin(pipe, envs);
+	if (stat_loc > -2)
+		return (stat_loc);
 	pid = fork();
 	if (pid == -1)
 		return (error(-1, 0, 0));
@@ -106,6 +114,7 @@ void	executor(t_command_list *command_list, t_vvector *envs)
 	int	pipe_stat;
 	int	i;
 
+	signal(SIGINT, signal_handler_sub);
 	i = -1;
 	while (++i < command_list->size)
 	{
@@ -117,4 +126,5 @@ void	executor(t_command_list *command_list, t_vvector *envs)
 			&& pipe_stat != command_list->pipes[i].logic_operator)
 			++i;
 	}
+	signal(SIGINT, signal_handler);
 }

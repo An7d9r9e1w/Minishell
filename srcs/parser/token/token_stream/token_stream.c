@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 10:03:36 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/08 07:57:39 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/10 17:04:15 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,14 @@ void	ts_free(t_token_stream *ts)
 			free(ts->buffer);
 		free(ts);
 	}
+}
+
+t_token	*ts_get_token(t_token_stream *ts, t_vvector *envs)
+{
+	if (ts->full)
+	{
+		ts->full = 0;
+		return (ts->buffer);
+	}
+	return (get_token(&ts->line_cur, envs));
 }
