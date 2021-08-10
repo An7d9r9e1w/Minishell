@@ -215,6 +215,7 @@
 #include <error.h>
 #include <parser.h>
 #include <environment.h>
+#include <executor.h>
 
 void	paused(void)//TEST
 {
@@ -247,7 +248,6 @@ static int	init_asmr_ts_envs(t_cmd_assembler **asmr, t_token_stream **ts,
 	return (0);
 }
 
-__attribute__((noreturn))
 void	msh_exit(void)
 {
 	if (error(-2, 0, 0) == -1)
@@ -265,7 +265,6 @@ static void	free_asmr_ts_envs(t_cmd_assembler *asmr, t_token_stream *ts,
 	cmd_assembler_free(asmr);
 }
 
-__attribute__((noreturn))
 static void	fatal(t_cmd_assembler *asmr, t_token_stream *ts,
 		t_vvector *envs)
 {
@@ -295,45 +294,10 @@ static t_command_list	*parser(t_cmd_assembler *asmr, t_token_stream *ts,
 		{
 			if (error(-2, 0, 0) == -1)
 				fatal(asmr, ts, envs);
-			else
-				error(0, 0, 1);
+			error(0, 0, 1);
 		}
 	}
 	return (command_list);
-}
-
-void print_command_list(t_command_list *command_list)//TEST
-{
-	printf(" P  C\n");
-	for (int i = 0; i < command_list->size; ++i)//TEST
-	{
-		t_pipe_line *pipe = command_list->pipes + i;
-		for (int j = 0; j < pipe->size; ++j)
-		{
-			t_command *command = pipe->commands + j;
-			printf("%2d %2d ", i, j);
-			if (command->args)
-				for (char **str = command->args; *str; ++str)
-					printf("%s ", *str);//TEST*/
-			printf("\n");
-			t_file *file;
-			if ((file = command->in))
-			{
-				printf("\tin: ");
-				for (int k = 0; k < command->in_size; ++k, ++file)
-					printf("%s,%d ", file->path, file->mode);
-				printf("\n");
-			}
-			if ((file = command->out))
-			{
-				printf("\tout: ");
-				for (int k = 0; k < command->out_size; ++k, ++file)
-					printf("%s,%d ", file->path, file->mode);
-				printf("\n");
-			}
-		}
-		printf("logic=%d\n", pipe->logic_operator);
-	}
 }
 
 int	main(int argc, char *argv[], char *envp[])
@@ -350,7 +314,8 @@ int	main(int argc, char *argv[], char *envp[])
 	while (1)
 	{
 		command_list = parser(asmr, ts, envs);
-		print_command_list(command_list);//TEST
+		//print_command_list(command_list);//TEST
+		executor(command_list, envs);
 		command_list_free(command_list);
 	}
 	return (0);

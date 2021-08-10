@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 15:01:41 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/03 18:21:55 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/10 10:34:59 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,12 @@
 #define EEND_M "syntax error: unexpected end of file "
 #define EBADTOKEN_M "syntax error near unexpected token `"
 #define EQUOTE_M "unexpected EOF while looking for matching `"
+#define ENOCMD_M "command not found"
 
 static void	error_msg(int err, char *add_msg)
 {
 	static char	*msgs[] = {"", EFULLBUF_M, EEND_M, EBADTOKEN_M, EQUOTE_M,
-		"TEST ERROR"};
+		ENOCMD_M};
 	char		*msg;
 
 	if (err == -1)
@@ -37,7 +38,11 @@ static void	error_msg(int err, char *add_msg)
 	write(2, "minishell: ", 11);
 	write(2, msg, mstrlen(msg));
 	if (*add_msg)
+	{
+		if (err != EBADTOKEN && err != EQUOTE)
+			write(2, ": ", 2);
 		write(2, add_msg, mstrlen(add_msg));
+	}
 	if (err == EBADTOKEN || err == EQUOTE)
 		write(2, "'", 1);
 	write(2, "\n", 1);
@@ -52,7 +57,12 @@ int	error(int err_n, char *add_msg, int print)
 		return (err);
 	if (print)
 	{
-		error_msg(err, buf);
+		if (add_msg)
+			mstrlcpy(buf, add_msg, 256);
+		if (err_n && err_n > -2)
+			error_msg(err_n, buf);
+		else
+			error_msg(err, buf);
 		err = 0;
 		*buf = 0;
 		if (errno)

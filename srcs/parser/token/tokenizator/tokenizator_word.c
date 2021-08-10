@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 10:03:48 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/04 15:26:31 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/10 08:57:54 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ t_token	*get_word(char **line_read, t_vvector *envs)
 	seq_stat = get_sequence(line_read, cv, envs);
 	while (**line_read && !is_space(**line_read) && !seq_stat)
 		seq_stat = get_sequence(line_read, cv, envs);
-	if (seq_stat != -1)
+	if (cv->size && seq_stat != -1)
 		token = token_create(mstrdup(cv->arr), WORD);
 	else
 		token = 0;

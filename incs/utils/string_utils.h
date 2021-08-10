@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 10:02:15 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/04 14:37:29 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/09 12:59:21 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,8 @@ int		mstrcmpv(const void *v1, const void *v2);
 int		mstrncmp(const char *s1, const char *s2, unsigned int n);
 int		envcmpv(const void *s1, const void *s2);
 
+/*
+ *	Part 3
+ */
+char	*mstrjoin(char const *s1, char const *s2);
 #endif	/*STRING_UTILS_H*/

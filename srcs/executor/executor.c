@@ -1,0 +1,120 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   executor.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/08/08 13:59:48 by nnamor            #+#    #+#             */
+/*   Updated: 2021/08/10 12:03:37 by nnamor           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <unistd.h>
+#include <stdio.h>//TEST
+#include <stdlib.h>
+#include <sys/wait.h>
+
+#include <executor.h>
+#include <error.h>
+
+/*__attribute__ ((noreturn))*/
+void	try_exec(t_command *command, t_vvector *envs, int *fildes, int out);
+
+//TEST
+/*void print_command_list(t_command_list *command_list)//TEST
+{
+	printf(" P  C\n");
+	for (int i = 0; i < command_list->size; ++i)//TEST
+	{
+		t_pipe_line *pipe = command_list->pipes + i;
+		for (int j = 0; j < pipe->size; ++j)
+		{
+			t_command *command = pipe->commands + j;
+			printf("%2d %2d ", i, j);
+			if (command->args)
+				for (char **str = command->args; *str; ++str)
+					printf("%s ", *str);//TEST
+			printf("\n");
+			t_file *file;
+			if ((file = command->in))
+			{
+				printf("\tin: ");
+				for (int k = 0; k < command->in_size; ++k, ++file)
+					printf("%s,%d ", file->path, file->mode);
+				printf("\n");
+			}
+			if ((file = command->out))
+			{
+				printf("\tout: ");
+				for (int k = 0; k < command->out_size; ++k, ++file)
+					printf("%s,%d ", file->path, file->mode);
+				printf("\n");
+			}
+		}
+		printf("logic=%d\n", pipe->logic_operator);
+	}
+}*/
+//TEST
+
+/*__attribute__ ((noreturn))*/
+void	exec_command(int size, t_command *command, t_vvector *envs)
+{
+	pid_t	pid;
+	int		fildes[2];
+	int		out;
+
+	out = STDOUT_FILENO;
+	while (size--)
+	{
+		if (pipe(fildes) == -1)
+			exit(error(-1, 0, 1));
+		pid = fork();
+		if (pid == -1)
+			exit(error(-1, 0, 1));
+		if (pid)
+			try_exec(command--, envs, fildes, out);
+		close(fildes[0]);
+		if (out > 2)
+			close(out);
+		out = fildes[1];
+		--command;
+	}
+	fildes[0] = STDIN_FILENO;
+	fildes[1] = STDOUT_FILENO;
+	try_exec(command, envs, fildes, out);
+}
+
+int	exec_pipe(t_pipe_line *pipe, t_vvector *envs)
+{
+	pid_t	pid;
+	int		stat_loc;
+
+	pid = fork();
+	if (pid == -1)
+		return (error(-1, 0, 0));
+	if (!pid)
+		exec_command(pipe->size - 1, pipe->commands + pipe->size - 1, envs);
+	if (waitpid(pid, &stat_loc, 0) == -1)
+		return (error(-1, 0, 0));
+	return (stat_loc);
+}
+
+void	executor(t_command_list *command_list, t_vvector *envs)
+{
+	//print_command_list(command_list);//TEST
+	int	pipe_stat;
+	int	i;
+
+	i = -1;
+	while (++i < command_list->size)
+	{
+		pipe_stat = exec_pipe(command_list->pipes + i, envs);
+		if (pipe_stat == -1)
+			break ;
+		pipe_stat = !!pipe_stat;
+		while (i < command_list->size
+			&& pipe_stat != command_list->pipes[i].logic_operator)
+			++i;
+	}
+}

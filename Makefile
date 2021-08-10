@@ -1,7 +1,7 @@
 SRCDIR := srcs
 OBJDIR := objs
 DEPDIR := $(OBJDIR)/.deps
-INCDIR := $(dir $(wildcard incs/**/))
+INCDIR := $(shell find incs -type d)
 
 SRCS := $(shell find $(SRCDIR) -name \*.c)
 OBJS := $(addprefix $(OBJDIR)/,$(notdir $(SRCS:%.c=%.o)))

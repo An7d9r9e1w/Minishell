@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 15:01:47 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/01 12:49:41 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/10 09:13:24 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define EEND 2
 # define EBADTOKEN 3
 # define EQUOTE 4
+# define ENOCMD 5
 
 /*
  *	err		-	 -1 = standard error

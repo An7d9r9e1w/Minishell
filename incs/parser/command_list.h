@@ -6,15 +6,15 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 14:02:52 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/03 18:31:05 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/08 15:52:10 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COMMAND_LIST_H
 # define COMMAND_LIST_H
 
-# define LOGIC_OR 0
-# define LOGIC_AND 1
+# define LOGIC_AND 0
+# define LOGIC_OR 1
 
 // O_WRONLY | O_CREAT | hdflag * O_APPEND | !hdflag * O_TRUNC
 

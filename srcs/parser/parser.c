@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 10:03:07 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/04 15:15:23 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/10 10:53:44 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ t_command_list	*parse_line_read(t_cmd_assembler *asmr,
 		if (token->kind == AND || token->kind == OR)
 		{
 			((t_pipe_line *)asmr->pipes->arr[asmr->pipes->size - 1])
-				->logic_operator = (token->kind == AND);
+				->logic_operator = (token->kind == OR);
 			stat = get_pipe_line(asmr, ts, envs);
 		}
 		else
