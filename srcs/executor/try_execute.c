@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 11:56:46 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/10 17:33:31 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/10 18:20:56 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@
 #include <environment.h>
 
 int	set_flows(t_command *command, int *fildes, int *out);
+int	check_for_builtin(t_command *command, t_vvector *envs,
+	int *fildes, int out);
+int	try_exec_builtin(t_command *command, t_vvector *envs,
+	int *fildes, int out);
 
 static int	get_next_path(t_cvector *cv, char *name, char **path_env)
 {
@@ -100,6 +104,9 @@ void	try_exec(t_command *command, t_vvector *envs, int *fildes, int out)
 	char	**envs_cp;
 	int		len;
 
+	len = check_for_builtin(command, envs, fildes, out);
+	if (len > -2)
+		exit(len == -1);
 	if (search_path(command, envs) == -1)
 		exec_error(ENOCMD, *command->args);
 	if (set_flows(command, fildes, &out) == -1

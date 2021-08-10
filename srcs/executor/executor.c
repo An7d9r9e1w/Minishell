@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 13:59:48 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/10 18:03:04 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/10 18:22:11 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@
 
 /*__attribute__ ((noreturn))*/
 void	try_exec(t_command *command, t_vvector *envs, int *fildes, int out);
-int		check_for_builtin(t_pipe_line *pipe, t_vvector *envs);
+int		check_for_builtin(t_command *command, t_vvector *envs,
+		int *fildes, int out);
 int		try_exec_builtin(t_command *command, t_vvector *envs,
 		int *fildes, int out);
 
@@ -94,10 +95,17 @@ int	exec_pipe(t_pipe_line *pipe, t_vvector *envs)
 {
 	pid_t	pid;
 	int		stat_loc;
+	int		fildes[2];
 
-	stat_loc = check_for_builtin(pipe, envs);
-	if (stat_loc > -2)
-		return (stat_loc);
+	if (pipe->size == 1)
+	{
+		fildes[0] = STDIN_FILENO;
+		fildes[1] = STDOUT_FILENO;
+		stat_loc = check_for_builtin(pipe->commands, envs,
+			fildes, STDOUT_FILENO);
+		if (stat_loc > -2)
+			return (stat_loc);
+	}
 	pid = fork();
 	if (pid == -1)
 		return (error(-1, 0, 0));

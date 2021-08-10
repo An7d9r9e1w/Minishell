@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 15:42:39 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/10 18:06:00 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/10 18:25:51 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,25 +63,19 @@ int	try_exec_builtin(t_command *command, t_vvector *envs, int *fildes, int out)
 	return (-(stat_loc == -1));
 }
 
-int		check_for_builtin(t_pipe_line *pipe, t_vvector *envs)
+int	check_for_builtin(t_command *command, t_vvector *envs,
+		int *fildes, int out)
 {
-	char	*cmd;
-	int		fildes[2];
-	int		out;
+	char	*name;
 
-	if (pipe->size > 1)
-		return (-2);
-	fildes[0] = STDIN_FILENO;
-	fildes[1] = STDOUT_FILENO;
-	out = STDOUT_FILENO;
-	cmd = *pipe->commands[0].args;
-	if (!mstrncmp(cmd, "echo", mstrlen("echo") + 1)
-		|| !mstrncmp(cmd, "cd", mstrlen("cd") + 1)
-		|| !mstrncmp(cmd, "pwd", mstrlen("pwd") + 1)
-		|| !mstrncmp(cmd, "export", mstrlen("export") + 1)
-		|| !mstrncmp(cmd, "unset", mstrlen("unset") + 1)
-		|| !mstrncmp(cmd, "env", mstrlen("env") + 1)
-		|| !mstrncmp(cmd, "exit", mstrlen("exit") + 1))
-		return (try_exec_builtin(pipe->commands, envs, fildes, out));
+	name = *command->args;
+	if (!mstrncmp(name, "echo", mstrlen("echo") + 1)
+		|| !mstrncmp(name, "cd", mstrlen("cd") + 1)
+		|| !mstrncmp(name, "pwd", mstrlen("pwd") + 1)
+		|| !mstrncmp(name, "export", mstrlen("export") + 1)
+		|| !mstrncmp(name, "unset", mstrlen("unset") + 1)
+		|| !mstrncmp(name, "env", mstrlen("env") + 1)
+		|| !mstrncmp(name, "exit", mstrlen("exit") + 1))
+		return (try_exec_builtin(command, envs, fildes, out));
 	return (-2);
 }
