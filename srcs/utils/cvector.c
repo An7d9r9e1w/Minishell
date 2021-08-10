@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 10:02:54 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/01 10:37:14 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/10 08:48:25 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ t_cvector	*cvector_create(void)
 	cv->capacity = 1024;
 	cv->size = 0;
 	cv->arr = malloc(sizeof(char) * cv->capacity);
+	*cv->arr = 0;
 	if (cv->arr)
 		return (cv);
 	free(cv);
