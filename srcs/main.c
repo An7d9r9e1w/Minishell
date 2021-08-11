@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 10:03:01 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/11 14:40:59 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/11 16:25:54 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,28 +37,15 @@ void	paused(void)//TEST
 
 static int	set_shell_level(t_vvector *envs)
 {
-	char	buf[24];
-	char	*p;
-	char	*level_str;
-	int		index;
-	int		level;
+	char	*level;
+	int		env_stat;
 
-	index = get_environment_index(envs, "SHLVL");
-	if (index == -1)
+	if (get_environment_index(envs, "SHLVL") == -1)
 		return (vvector_put(envs, mstrdup("SHLVL=1")));
-	level = matoi(get_environment_value(envs, "SHLVL")) + 1;
-	level_str = mitoa(level);
-	if (!level_str)
-		return (-1);
-	free(envs->arr[index]);
-	p = buf + mstrlcpy(buf, "SHLVL=", 6);
-	mstrlcpy(p, level_str, mstrlen(level_str));
-	free(level_str);
-	p = mstrdup(buf);
-	if (!p)
-		return (-1);
-	envs->arr[index] = p;
-	return (0);
+	level = mitoa(matoi(get_environment_value(envs, "SHLVL")) + 1);
+	env_stat = set_environment(envs, "SHLVL", level);
+	free(level);
+	return (env_stat);
 }
 
 static int	init_asmr_ts_envs(t_cmd_assembler **asmr, t_token_stream **ts,

@@ -6,12 +6,16 @@
 /*   By: ejina <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 12:56:23 by ejina             #+#    #+#             */
-/*   Updated: 2021/08/04 15:51:08 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/11 16:17:59 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
+
 #include <vvector.h>
+#include <cvector.h>
 #include <string_utils.h>
+#include <error.h>
 
 t_vvector	*get_environments(char **env)
 {
@@ -55,4 +59,33 @@ char	*get_environment_value(t_vvector *envs, char *name)
 	if (i == (unsigned int)(-1))
 		return (0);
 	return (envs->arr[i] + mstrlen(name) + 1);
+}
+
+int	set_environment(t_vvector *envs, char *name, char *value)
+{
+	t_cvector	*cv;
+	int			index;
+
+	if (!name || !value)
+		return (-1);
+	cv = 0;
+	cv = cvector_create();
+	if (!cv || cvector_write(cv, name, mstrlen(name)) == -1
+		|| cvector_write(cv, "=", 1) == -1
+		|| cvector_write(cv, value, mstrlen(value)) == -1)
+	{
+		cvector_free(cv);
+		return (-1);
+	}
+	index = get_environment_index(envs, name);
+	if (index >= 0)
+	{
+		free(envs->arr[index]);
+		envs->arr[index] = mstrdup(cv->arr);
+		cvector_free(cv);
+		return (-!(envs->arr[index]));
+	}
+	index = vvector_put(envs, mstrdup(cv->arr));
+	cvector_free(cv);
+	return (index);
 }
