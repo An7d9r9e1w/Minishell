@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 15:42:39 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/10 18:25:51 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/11 07:15:11 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	exec_builtin(char **args, t_vvector *envs)
 	else if (!mstrncmp(cmd, "env", mstrlen("env") + 1))
 		return (msh_env(args, envs));
 	else if (!mstrncmp(cmd, "exit", mstrlen("exit") + 1))
-		return (msh_exit(args));
+		msh_exit(0);
 	return (-1);
 }
 
