@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 10:04:01 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/04 15:26:01 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/11 18:07:15 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,22 @@ static int	error_env(t_cvector *cv)
 	return (-1);
 }
 
+static int	question_sign(char **line_read, t_cvector *cv)
+{
+	char	*value;
+
+	if (**line_read != '?')
+		return (0);
+	++(*line_read);
+	value = mitoa(last_return(0, 1));
+	if (value)
+	{
+		cvector_write(cv, value, mstrlen(value));
+		free(value);
+	}
+	return (1);
+}
+
 int	get_environment(char **line_read, t_cvector *cv,
 		t_vvector *envs, int dquoted)
 {
@@ -36,6 +52,8 @@ int	get_environment(char **line_read, t_cvector *cv,
 		return (-(dquoted && cvector_write(cv, "$", 1) == -1));
 	if (*ch >= '0' && *ch <= '9')
 		return (0 & (long)(*line_read)++);
+	if (question_sign(line_read, cv))
+		return (error(-2, 0, 0));
 	cv_env = cvector_create();
 	if (!cv_env)
 		return (-1);
@@ -45,5 +63,7 @@ int	get_environment(char **line_read, t_cvector *cv,
 	*line_read = ch;
 	ch = get_environment_value(envs, cv_env->arr);
 	cvector_free(cv_env);
+	if (!ch)
+		return (-1);
 	return (cvector_write(cv, ch, mstrlen(ch)));
 }

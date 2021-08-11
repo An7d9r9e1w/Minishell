@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 13:59:48 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/10 18:22:11 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/11 18:07:40 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <token_stream.h>
 #include <executor.h>
 #include <error.h>
+#include <environment.h>
 
 /*__attribute__ ((noreturn))*/
 void	try_exec(t_command *command, t_vvector *envs, int *fildes, int out);
@@ -116,7 +117,7 @@ int	exec_pipe(t_pipe_line *pipe, t_vvector *envs)
 	return (stat_loc);
 }
 
-void	executor(t_command_list *command_list, t_vvector *envs)
+int	executor(t_command_list *command_list, t_vvector *envs)
 {
 	//print_command_list(command_list);//TEST
 	int	pipe_stat;
@@ -134,5 +135,7 @@ void	executor(t_command_list *command_list, t_vvector *envs)
 			&& pipe_stat != command_list->pipes[i].logic_operator)
 			++i;
 	}
+	last_return(pipe_stat, 0);
 	signal(SIGINT, signal_handler);
+	return (pipe_stat);
 }

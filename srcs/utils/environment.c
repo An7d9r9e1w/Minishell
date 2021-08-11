@@ -6,11 +6,12 @@
 /*   By: ejina <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 12:56:23 by ejina             #+#    #+#             */
-/*   Updated: 2021/08/11 16:17:59 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/11 18:09:20 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <stdio.h>//TEST
 
 #include <vvector.h>
 #include <cvector.h>
@@ -51,10 +52,22 @@ int	get_environment_index(t_vvector *envs, char	*name)
 	return (-1);
 }
 
+int	last_return(int new_stat, int get)
+{
+	static int	stat = 0;
+
+	if (get)
+		return (stat);
+	stat = new_stat;
+	return (stat);
+}
+
 char	*get_environment_value(t_vvector *envs, char *name)
 {
 	unsigned int	i;
 
+	if (!mstrcmp(name, "?"))
+		return (mitoa(last_return(0, 1)));
 	i = get_environment_index(envs, name);
 	if (i == (unsigned int)(-1))
 		return (0);

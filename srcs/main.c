@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 10:03:01 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/11 16:25:54 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/11 16:48:54 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,8 @@ int	main(int argc, char *argv[], char *envp[])
 	while (1)
 	{
 		command_list = parser(asmr, ts, envs);
-		executor(command_list, envs);
+		if (executor(command_list, envs) == -1)
+			fatal(asmr, ts, envs);
 		command_list_free(command_list);
 	}
 	return (0);
