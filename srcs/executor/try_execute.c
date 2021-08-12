@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 11:56:46 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/12 10:11:30 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/12 13:49:16 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@
 #include <string_utils.h>
 #include <environment.h>
 
-int	check_for_builtin(t_command *command, t_vvector *envs,
-	int *fildes, int out);
-int	try_exec_builtin(t_command *command, t_vvector *envs,
-	int *fildes, int out);
+int	check_for_builtin(t_command *command, t_vvector *envs, int *fildes);
 
 static int	get_next_path(t_cvector *cv, char *name, char **path_env)
 {
@@ -97,7 +94,7 @@ static void	exec_error(int err, char *msg)
 }
 
 /*__attribute__ ((noreturn))*/
-void	try_exec(t_command *command, t_vvector *envs, int *fildes, int out)
+void	try_exec(t_command *command, t_vvector *envs, int *fildes)
 {
 	char	**args_cp;
 	char	**envs_cp;
@@ -105,11 +102,11 @@ void	try_exec(t_command *command, t_vvector *envs, int *fildes, int out)
 
 	if (fildes[1] > 2)
 		close(fildes[1]);
-	len = check_for_builtin(command, envs, fildes, out);
+	len = check_for_builtin(command, envs, fildes);
 	if (len > -2)
 		exit(len == -1);
-	if (*fildes == -1 || out == -1 || dup2(fildes[0], STDIN_FILENO) == -1
-		|| dup2(out, STDOUT_FILENO) == -1)
+	if (*fildes == -1 || fildes[2] == -1 || dup2(fildes[0], STDIN_FILENO) == -1
+		|| dup2(fildes[2], STDOUT_FILENO) == -1)
 		exec_error(-1, 0);
 	if (search_path(command, envs) == -1)
 		exec_error(ENOCMD, *command->args);

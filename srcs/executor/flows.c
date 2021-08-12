@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 11:57:17 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/12 10:05:06 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/12 13:43:45 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,25 +101,30 @@ static int	open_files(t_file *files, int size)
 	return (fd);
 }
 
-int	set_flows(t_command *command, int *fildes, int *out)
+static int command_files(t_file *files, int size, int *fd)
 {
-	//if (fildes[1] > 2)
-	//	close(fildes[1]);
-	if (command->in)
+	if (files)
 	{
-		if (*fildes > 2)
-			close(*fildes);
-		*fildes = open_files(command->in, command->in_size);
-		if (*fildes == -1)
-			return (-1);
-	}
-	if (command->out)
-	{
-		if (*out > 2)
-			close(*out);
-		*out = open_files(command->out, command->out_size);
-		if (*out == -1)
+		if (*fd > 2)
+			close(*fd);
+		*fd = open_files(files, size);
+		if (*fd == -1)
 			return (-1);
 	}
 	return (0);
+}
+
+int	set_flows(int size, t_command *command, int *fildes)
+{
+	//if (fildes[1] > 2)
+	//	close(fildes[1]);
+	if (!size)
+	{
+		fildes[0] = STDIN_FILENO;
+		fildes[1] = STDOUT_FILENO;
+	}
+	else if (pipe(fildes) == -1)
+		exit(error(-1, 0, 1));
+	return (-(command_files(command->in, command->in_size, fildes) == -1
+		|| command_files(command->out, command->out_size, fildes + 2) == -1));
 }

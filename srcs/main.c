@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 10:03:01 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/12 09:06:57 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/12 14:39:08 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,19 @@ static int	init_asmr_ts_envs(t_cmd_assembler **asmr, t_token_stream **ts,
 /*__attribute__ ((noreturn))*/
 void	msh_exit(char **args)
 {
+	extern int	rl_end;
+	int			i;
+
 	if (error(-2, 0, 0) == -1)
 		exit(error(0, 0, 1));
 	else if (args)
+	{
+		i = mstrlen(*args) + rl_end;
+		printf("\e[A");
+		while (i--)
+			printf("\e[C");
 		printf("exit\n");
+	}
 	exit(0);
 }
 
@@ -100,6 +109,7 @@ static t_command_list	*parser(t_cmd_assembler *asmr, t_token_stream *ts,
 		t_vvector *envs)
 {
 	t_command_list	*command_list;
+	char			*prompt;
 	int				read_stat;
 
 	command_list = 0;
@@ -110,8 +120,9 @@ static t_command_list	*parser(t_cmd_assembler *asmr, t_token_stream *ts,
 			read_stat = ts_read(ts);
 		if (read_stat == -1)
 		{
+			prompt = ts->prompt;
 			free_asmr_ts_envs(asmr, ts, envs);
-			msh_exit((void *)1);
+			msh_exit(&prompt);
 		}
 		command_list = parse_line_read(asmr, ts, envs);
 		if (!command_list)

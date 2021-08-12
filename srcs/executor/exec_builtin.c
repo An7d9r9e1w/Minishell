@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 15:42:39 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/12 08:15:48 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/12 13:58:45 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #include <string_utils.h>
 #include <builtins.h>
 
-int	set_flows(t_command *command, int *fildes, int *out);
+int	set_flows(t_command *command, int *fildes);
 
 static int	exec_builtin(char **args, t_vvector *envs)
 {
@@ -44,7 +44,7 @@ static int	exec_builtin(char **args, t_vvector *envs)
 	return (-1);
 }
 
-int	try_exec_builtin(t_command *command, t_vvector *envs, int *fildes, int out)
+static int	try_exec_builtin(t_command *command, t_vvector *envs, int *fildes)
 {
 	int	stdflows[2];
 	int	stat_loc;
@@ -52,21 +52,20 @@ int	try_exec_builtin(t_command *command, t_vvector *envs, int *fildes, int out)
 	stdflows[0] = dup(STDIN_FILENO);
 	stdflows[1] = dup(STDOUT_FILENO);
 	if (stdflows[0] == -1 || stdflows[1] == -1
-		|| set_flows(command, fildes, &out) == -1
+		|| fildes[0] == -1 || fildes[2] == -1
 		|| dup2(fildes[0], STDIN_FILENO) == -1
-		|| dup2(out, STDOUT_FILENO) == -1)
+		|| dup2(fildes[2], STDOUT_FILENO) == -1)
 		return (error(-1, 0, 0));
 	stat_loc = exec_builtin(command->args, envs);
 	close(fildes[0]);
-	close(out);
+	close(fildes[2]);
 	if (dup2(stdflows[0], STDIN_FILENO) == -1
 		|| dup2(stdflows[1], STDOUT_FILENO) == -1)
 		return (error(-1, 0, 0));
 	return (-(stat_loc == -1));
 }
 
-int	check_for_builtin(t_command *command, t_vvector *envs,
-		int *fildes, int out)
+int	check_for_builtin(t_command *command, t_vvector *envs, int *fildes)
 {
 	char	*name;
 
@@ -78,6 +77,6 @@ int	check_for_builtin(t_command *command, t_vvector *envs,
 		|| !mstrncmp(name, "unset", mstrlen("unset") + 1)
 		|| !mstrncmp(name, "env", mstrlen("env") + 1)
 		|| !mstrncmp(name, "exit", mstrlen("exit") + 1))
-		return (try_exec_builtin(command, envs, fildes, out));
+		return (try_exec_builtin(command, envs, fildes));
 	return (-2);
 }
