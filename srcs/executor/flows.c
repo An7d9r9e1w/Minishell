@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 11:57:17 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/12 13:43:45 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/12 15:22:35 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 #include <get_next_line.h>
 #include <string_utils.h>
 
-/*__attribute__ ((noreturn))*/
 static void	heredoc(char *limiter, int out)
 {
 	char	*line;
@@ -101,7 +100,7 @@ static int	open_files(t_file *files, int size)
 	return (fd);
 }
 
-static int command_files(t_file *files, int size, int *fd)
+static int	command_files(t_file *files, int size, int *fd)
 {
 	if (files)
 	{
@@ -116,8 +115,6 @@ static int command_files(t_file *files, int size, int *fd)
 
 int	set_flows(int size, t_command *command, int *fildes)
 {
-	//if (fildes[1] > 2)
-	//	close(fildes[1]);
 	if (!size)
 	{
 		fildes[0] = STDIN_FILENO;
@@ -126,5 +123,6 @@ int	set_flows(int size, t_command *command, int *fildes)
 	else if (pipe(fildes) == -1)
 		exit(error(-1, 0, 1));
 	return (-(command_files(command->in, command->in_size, fildes) == -1
-		|| command_files(command->out, command->out_size, fildes + 2) == -1));
+			|| command_files(command->out, command->out_size,
+				fildes + 2) == -1));
 }

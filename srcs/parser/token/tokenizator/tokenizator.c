@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 10:03:42 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/04 15:16:52 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/12 15:22:57 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,4 @@ t_token	*get_token(char **line_read, t_vvector *envs)
 		return (get_operator(line_read, PIPE, OR));
 	(*line_read)--;
 	return (get_word(line_read, envs));
-//WILDCARD
 }
