@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 10:03:01 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/12 15:20:04 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/12 15:41:17 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@
 #include <parser.h>
 #include <environment.h>
 #include <executor.h>
+#include <char_checkers.h>
 
 int		init_asmr_ts_envs(t_cmd_assembler **asmr, t_token_stream **ts,
-			t_vvector *envs);
+			t_vvector **envs, char **envp);
 void	msh_exit(char **args);
 void	free_asmr_ts_envs(t_cmd_assembler *asmr, t_token_stream *ts,
 			t_vvector *envs);
@@ -35,6 +36,14 @@ static void	fatal(t_cmd_assembler *asmr, t_token_stream *ts, t_vvector *envs)
 {
 	free_asmr_ts_envs(asmr, ts, envs);
 	exit(error(0, 0, 1));
+}
+
+static int	is_empty(char *line_read)
+{
+	while (*line_read)
+		if (!is_space(*line_read++))
+			return (0);
+	return (1);
 }
 
 static t_command_list	*parser(t_cmd_assembler *asmr, t_token_stream *ts,
@@ -48,7 +57,7 @@ static t_command_list	*parser(t_cmd_assembler *asmr, t_token_stream *ts,
 	while (!command_list)
 	{
 		read_stat = ts_read(ts);
-		while (!read_stat && !*ts->line_read)
+		while (!read_stat && is_empty(ts->line_read))
 			read_stat = ts_read(ts);
 		if (read_stat == -1)
 		{
