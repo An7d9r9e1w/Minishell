@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 16:20:51 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/12 16:45:39 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/12 17:17:36 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	signal_handler_sub(int sig)
 	}
 	else if (sig == SIGQUIT)
 	{
+		if (rl_end)
+			exit(0);
 		write(1, "\e[K", 3);
 		rl_replace_line("", 0);
 	}
@@ -51,6 +53,5 @@ void	signal_quit(int sig)
 	{
 		write(2, "Quit: 3\n", 8);
 		rl_replace_line("", 0);
-		rl_redisplay();
 	}
 }
