@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 11:57:17 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/11 14:39:19 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/12 10:05:06 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,8 @@ static int	open_files(t_file *files, int size)
 
 int	set_flows(t_command *command, int *fildes, int *out)
 {
-	if (fildes[1] > 2)
-		close(fildes[1]);
+	//if (fildes[1] > 2)
+	//	close(fildes[1]);
 	if (command->in)
 	{
 		if (*fildes > 2)

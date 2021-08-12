@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 15:42:39 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/11 07:15:11 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/12 08:15:48 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ int	try_exec_builtin(t_command *command, t_vvector *envs, int *fildes, int out)
 		|| dup2(out, STDOUT_FILENO) == -1)
 		return (error(-1, 0, 0));
 	stat_loc = exec_builtin(command->args, envs);
+	close(fildes[0]);
+	close(out);
 	if (dup2(stdflows[0], STDIN_FILENO) == -1
 		|| dup2(stdflows[1], STDOUT_FILENO) == -1)
 		return (error(-1, 0, 0));

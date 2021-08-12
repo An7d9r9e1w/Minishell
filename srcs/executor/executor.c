@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 13:59:48 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/11 18:07:40 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/12 10:25:07 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 #include <error.h>
 #include <environment.h>
 
-/*__attribute__ ((noreturn))*/
+int		set_flows(t_command *command, int *fildes, int *out);
 void	try_exec(t_command *command, t_vvector *envs, int *fildes, int out);
 int		check_for_builtin(t_command *command, t_vvector *envs,
 		int *fildes, int out);
@@ -76,11 +76,12 @@ void	exec_command(int size, t_command *command, t_vvector *envs)
 	{
 		if (pipe(fildes) == -1)
 			exit(error(-1, 0, 1));
+		set_flows(command, fildes, &out);
 		pid = fork();
 		if (pid == -1)
 			exit(error(-1, 0, 1));
 		if (pid)
-			try_exec(command--, envs, fildes, out);
+			try_exec(command, envs, fildes, out);
 		close(fildes[0]);
 		if (out > 2)
 			close(out);
@@ -89,6 +90,7 @@ void	exec_command(int size, t_command *command, t_vvector *envs)
 	}
 	fildes[0] = STDIN_FILENO;
 	fildes[1] = STDOUT_FILENO;
+	set_flows(command, fildes, &out);
 	try_exec(command, envs, fildes, out);
 }
 

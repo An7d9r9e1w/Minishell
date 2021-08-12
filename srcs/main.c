@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 10:03:01 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/11 16:48:54 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/12 09:06:57 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@
 #include <environment.h>
 #include <executor.h>
 
-void	paused(void)//TEST
+/*void	paused(void)//TEST
 {
 	char	c[2];
 
 	printf("Press enter...");
 	fgets(c, 2, stdin);
-}
+}*/
 
 static int	set_shell_level(t_vvector *envs)
 {
@@ -74,8 +74,6 @@ static int	init_asmr_ts_envs(t_cmd_assembler **asmr, t_token_stream **ts,
 /*__attribute__ ((noreturn))*/
 void	msh_exit(char **args)
 {
-	//int	i;
-
 	if (error(-2, 0, 0) == -1)
 		exit(error(0, 0, 1));
 	else if (args)
