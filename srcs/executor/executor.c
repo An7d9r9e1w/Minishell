@@ -6,16 +6,18 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 13:59:48 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/12 15:21:09 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/12 16:35:09 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <sys/wait.h>
 #include <signal.h>
 
-#include <token_stream.h>
+#include <readline/readline.h>
+#include <signal_handlers.h>
 #include <executor.h>
 #include <error.h>
 #include <environment.h>
@@ -84,6 +86,7 @@ int	executor(t_command_list *command_list, t_vvector *envs)
 	int	i;
 
 	signal(SIGINT, signal_handler_sub);
+	signal(SIGQUIT, signal_quit);
 	i = -1;
 	while (++i < command_list->size)
 	{
@@ -98,5 +101,8 @@ int	executor(t_command_list *command_list, t_vvector *envs)
 			++i;
 	}
 	signal(SIGINT, signal_handler);
+	signal(SIGQUIT, signal_handler);
+	rl_replace_line("", 0);
+	rl_redisplay();
 	return (pipe_stat);
 }

@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 10:02:34 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/10 17:04:24 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/12 16:30:21 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ t_token			*ts_get_token(t_token_stream *ts, t_vvector *envs);
  */
 int				ts_read(t_token_stream *ts);
 int				ts_putback(t_token_stream *ts, t_token *token);
-void			signal_handler(int sig);
-void			signal_handler_sub(int sig);
+char			*ts_get_prompt(char *new_prompt);
 
 #endif	/*TOKEN_STREAM_H*/

@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 15:15:16 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/12 15:16:46 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/12 16:28:30 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 #include <parser.h>
 #include <environment.h>
 #include <executor.h>
+#include <signal_handlers.h>
 
 static int	set_shell_level(t_vvector *envs)
 {
@@ -43,6 +44,7 @@ int	init_asmr_ts_envs(t_cmd_assembler **asmr, t_token_stream **ts,
 		t_vvector **envs, char **envp)
 {
 	signal(SIGINT, signal_handler);
+	signal(SIGQUIT, signal_handler);
 	*ts = ts_create("msh-1.0$ ");
 	if (!*ts)
 		return (error(-1, 0, 0));

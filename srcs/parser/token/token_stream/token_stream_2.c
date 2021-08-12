@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/07 17:14:21 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/12 15:38:28 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/12 16:20:42 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,29 +27,6 @@ char	*ts_get_prompt(char *new_prompt)
 	if (new_prompt)
 		prompt = new_prompt;
 	return (prompt);
-}
-
-void	signal_handler_sub(int sig)
-{
-	extern int	rl_end;
-	int			i;
-
-	if (sig == SIGINT)
-	{
-		i = mstrlen(ts_get_prompt(0)) + rl_end;
-		while (i--)
-			printf("\e[C");
-		printf("\e[K\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-	}
-}
-
-void	signal_handler(int sig)
-{
-	signal_handler_sub(sig);
-	if (sig == SIGINT)
-		rl_redisplay();
 }
 
 int	ts_read(t_token_stream *ts)
