@@ -6,10 +6,11 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 15:01:41 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/10 10:34:59 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/13 09:08:13 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>//TEST
 #include <unistd.h>
 #include <sys/errno.h>
 #include <string.h>
@@ -64,7 +65,7 @@ int	error(int err_n, char *add_msg, int print)
 		else
 			error_msg(err, buf);
 		err = 0;
-		*buf = 0;
+		*buf = '\0';
 		if (errno)
 			return (errno);
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 15:42:39 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/12 13:58:45 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/13 10:20:38 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,16 @@
 #include <builtins.h>
 
 int	set_flows(t_command *command, int *fildes);
+
+void	close_fildes(int fd1, int fd2, int fd3)
+{
+	if (fd1 > 2)
+		close(fd1);
+	if (fd2 > 2)
+		close(fd2);
+	if (fd3 > 2)
+		close(fd3);
+}
 
 static int	exec_builtin(char **args, t_vvector *envs)
 {
@@ -52,13 +62,11 @@ static int	try_exec_builtin(t_command *command, t_vvector *envs, int *fildes)
 	stdflows[0] = dup(STDIN_FILENO);
 	stdflows[1] = dup(STDOUT_FILENO);
 	if (stdflows[0] == -1 || stdflows[1] == -1
-		|| fildes[0] == -1 || fildes[2] == -1
 		|| dup2(fildes[0], STDIN_FILENO) == -1
 		|| dup2(fildes[2], STDOUT_FILENO) == -1)
 		return (error(-1, 0, 0));
 	stat_loc = exec_builtin(command->args, envs);
-	close(fildes[0]);
-	close(fildes[2]);
+	close_fildes(fildes[0], fildes[1], fildes[2]);
 	if (dup2(stdflows[0], STDIN_FILENO) == -1
 		|| dup2(stdflows[1], STDOUT_FILENO) == -1)
 		return (error(-1, 0, 0));

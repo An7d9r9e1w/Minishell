@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 13:59:48 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/12 17:07:02 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/13 10:45:16 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 int		set_flows(int size, t_command *command, int *fildes);
 void	try_exec(t_command *command, t_vvector *envs, int *fildes);
 int		check_for_builtin(t_command *command, t_vvector *envs, int *fildes);
+void	close_fildes(int fd1, int fd2, int fd3);
 
 pid_t	try_fork(pid_t *pids)
 {
@@ -40,6 +41,8 @@ int	recent_command_return(pid_t pid)
 {
 	int	stat_loc;
 
+	if (!pid)
+		return (1);
 	if (waitpid(pid, &stat_loc, 0) == -1)
 		exit(error(-1, 0, 1));
 	while (wait(NULL) != -1)
@@ -63,20 +66,21 @@ int	exec_pipe(int size, t_command *command, t_vvector *envs)
 	fildes[2] = STDOUT_FILENO;
 	pids[0] = 0;
 	pids[1] = 0;
+	stat = size - 1;
 	while (size--)
 	{
-		set_flows(size, command, fildes);
-		if (!size && only_builtin(command, envs, fildes, &stat))
-			return (stat);
-		if (!try_fork(pids))
-			try_exec(command, envs, fildes);
-		if (fildes[0] > 2)
-			close(fildes[0]);
-		if (fildes[2] > 2)
-			close(fildes[2]);
+		if (set_flows(size, command, fildes) != -1 && command->args)
+		{
+			if (!stat && only_builtin(command, envs, fildes, &stat))
+				return (stat);
+			if (!try_fork(pids))
+				try_exec(command, envs, fildes);
+		}
+		close_fildes(fildes[0], 0, fildes[2]);
 		fildes[2] = fildes[1];
 		--command;
 	}
+	close_fildes(0, 0, fildes[2]);
 	return (recent_command_return(*pids));
 }
 

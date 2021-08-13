@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 11:57:17 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/12 15:22:35 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/13 10:38:44 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 #include <error.h>
 #include <get_next_line.h>
 #include <string_utils.h>
+
+void	close_fildes(int fd1, int fd2, int fd3);
 
 static void	heredoc(char *limiter, int out)
 {
@@ -115,6 +117,8 @@ static int	command_files(t_file *files, int size, int *fd)
 
 int	set_flows(int size, t_command *command, int *fildes)
 {
+	int	stat;
+
 	if (!size)
 	{
 		fildes[0] = STDIN_FILENO;
@@ -122,7 +126,13 @@ int	set_flows(int size, t_command *command, int *fildes)
 	}
 	else if (pipe(fildes) == -1)
 		exit(error(-1, 0, 1));
-	return (-(command_files(command->in, command->in_size, fildes) == -1
+	stat = -(command_files(command->in, command->in_size, fildes) == -1
 			|| command_files(command->out, command->out_size,
-				fildes + 2) == -1));
+				fildes + 2) == -1);
+	if (stat == -1)
+	{
+		error(0, 0, 1);
+		close_fildes(fildes[0], fildes[1], fildes[2]);
+	}
+	return (stat);
 }
