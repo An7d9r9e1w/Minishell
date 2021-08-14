@@ -6,7 +6,7 @@
 /*   By: ejina <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 11:58:08 by ejina             #+#    #+#             */
-/*   Updated: 2021/08/10 15:01:25 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/14 14:56:45 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,12 @@ char	*mitoa(int n)
 	if (n < 0)
 		*p-- = '-';
 	return (mstrdup(p + (n != 0)));
+}
+
+int	is_empty(char *str)
+{
+	while (*str)
+		if (!is_space(*str++))
+			return (0);
+	return (1);
 }

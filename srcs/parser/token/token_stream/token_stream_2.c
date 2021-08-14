@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/07 17:14:21 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/13 18:07:32 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/14 14:57:19 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	ts_read(t_token_stream *ts)
 	if (ts->line_read)
 		free(ts->line_read);
 	ts->line_read = readline(ts->prompt);
-	if (ts->line_read && *ts->line_read)
+	if (ts->line_read && !is_empty(ts->line_read))
 		add_history(ts->line_read);
 	ts->line_cur = ts->line_read;
 	return (-!ts->line_read);
