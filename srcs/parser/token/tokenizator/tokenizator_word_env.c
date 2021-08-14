@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 10:04:01 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/12 15:11:38 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/14 14:48:45 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,5 @@ int	get_environment(char **line_read, t_cvector *cv,
 	*line_read = ch;
 	ch = get_environment_value(envs, cv_env->arr);
 	cvector_free(cv_env);
-	if (!ch)
-		return (-1);
 	return (cvector_write(cv, ch, mstrlen(ch)));
 }
