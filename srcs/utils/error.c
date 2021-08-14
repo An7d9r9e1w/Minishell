@@ -6,11 +6,10 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 15:01:41 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/13 09:08:13 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/14 09:00:03 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>//TEST
 #include <unistd.h>
 #include <sys/errno.h>
 #include <string.h>

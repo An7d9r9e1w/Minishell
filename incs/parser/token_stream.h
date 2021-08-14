@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 10:02:34 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/12 16:30:21 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/13 17:52:17 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,15 @@
 
 # include <token.h>
 # include <vvector.h>
+# include <list.h>
 
 typedef struct s_token_stream
 {
 	char	*line_read;
 	char	*line_cur;
 	char	*prompt;
-	t_token	*buffer;
-	int		full;
+	t_list	*buffer;
+	int		size;
 }	t_token_stream;
 
 /*

@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 10:03:48 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/11 16:57:00 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/14 08:55:39 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ static int	get_simple_word(char **line_read, t_cvector *cv)
 	len = 0;
 	while (is_word(*ch) || (*ch && !is_space(*ch) && !is_spec(*ch)))
 	{
-		buf[len++] = *ch++;
+		if (*ch++ == '*')
+			buf[len++] = -1;
+		else
+			buf[len++] = ch[-1];
 		if (len == BUFFERSIZE)
 		{
 			if (cvector_write(cv, buf, len) == -1)

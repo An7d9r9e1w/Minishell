@@ -6,7 +6,7 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/07 17:14:21 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/12 16:20:42 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/13 18:07:32 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 #include <string_utils.h>
 #include <error.h>
 #include <vvector.h>
+
+int	ts_push_token(t_token_stream *ts, t_token *token);
 
 char	*ts_get_prompt(char *new_prompt)
 {
@@ -42,9 +44,5 @@ int	ts_read(t_token_stream *ts)
 
 int	ts_putback(t_token_stream *ts, t_token *token)
 {
-	if (ts->full)
-		return (error(EFULLBUF, 0, 0));
-	ts->buffer = token;
-	ts->full = 1;
-	return (0);
+	return (ts_push_token(ts, token));
 }

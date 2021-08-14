@@ -6,12 +6,11 @@
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 15:42:39 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/13 10:20:38 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/14 08:58:55 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include <stdio.h>//TEST
 #include <stdlib.h>
 #include <sys/wait.h>
 

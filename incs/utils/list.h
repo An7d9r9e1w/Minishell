@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   char_checkers.c                                    :+:      :+:    :+:   */
+/*   list.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/31 10:02:49 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/14 08:55:53 by nnamor           ###   ########.fr       */
+/*   Created: 2021/08/13 16:38:14 by nnamor            #+#    #+#             */
+/*   Updated: 2021/08/14 08:55:10 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <char_checkers.h>
+#ifndef LIST_H
+# define LIST_H
 
-int	is_space(char c)
+typedef struct s_list
 {
-	return (c == ' ' || (c >= '\t' && c <= '\r'));
-}
+	void			*content;
+	struct s_list	*next;
+}	t_list;
 
-int	is_spec(char c)
-{
-	return (c == '<' || c == '>' || c == '|' || c == '&' || c == '"'
-		|| c == '\'' || c == '$');
-}
+t_list	*list_create(void *content);
+void	list_free(t_list *list);
+t_list	*get_list(t_list *list, int index);
+int		get_list_size(t_list *list);
 
-int	is_word(char c)
-{
-	return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')
-		|| (c >= '0' && c <= '9') || c == '_');
-}
+#endif	/*LIST_H*/

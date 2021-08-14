@@ -6,12 +6,11 @@
 /*   By: ejina <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 12:56:23 by ejina             #+#    #+#             */
-/*   Updated: 2021/08/12 14:49:32 by nnamor           ###   ########.fr       */
+/*   Updated: 2021/08/14 08:59:56 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <stdio.h>//TEST
 
 #include <vvector.h>
 #include <cvector.h>

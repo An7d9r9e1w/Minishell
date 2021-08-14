@@ -1,30 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   char_checkers.c                                    :+:      :+:    :+:   */
+/*   wildcard.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nnamor <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/31 10:02:49 by nnamor            #+#    #+#             */
-/*   Updated: 2021/08/14 08:55:53 by nnamor           ###   ########.fr       */
+/*   Created: 2021/08/13 16:59:21 by nnamor            #+#    #+#             */
+/*   Updated: 2021/08/14 08:11:03 by nnamor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <char_checkers.h>
+#include <wildcard.h>
 
-int	is_space(char c)
+static int	matchstar(char *pattern, char *str)
 {
-	return (c == ' ' || (c >= '\t' && c <= '\r'));
+	while (1)
+	{
+		if (match(pattern, str))
+			return (1);
+		if (!*str++)
+			break ;
+	}
+	return (0);
 }
 
-int	is_spec(char c)
+int	match(char *pattern, char *str)
 {
-	return (c == '<' || c == '>' || c == '|' || c == '&' || c == '"'
-		|| c == '\'' || c == '$');
-}
-
-int	is_word(char c)
-{
-	return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')
-		|| (c >= '0' && c <= '9') || c == '_');
+	while (1)
+	{
+		if (!*pattern)
+			return (1);
+		if (*pattern == '*')
+			return (matchstar(pattern + 1, str));
+		if (*pattern++ != *str++)
+			break ;
+	}
+	return (0);
 }
